@@ -1,0 +1,2287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Produk KBLI - Tim Kerja Eltek</title>
+    <style>
+        /* ========================================
+           1. GLOBAL STYLES
+           ======================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #FFFFFF; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+        }
+        .container { 
+            position: relative; 
+            z-index: 1; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
+
+        /* ========================================
+           2. TOP DECORATION BAR
+           ======================================== */
+        .decoration-top { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 8px; 
+            background: linear-gradient(90deg, #EF4444 0%, #EF4444 50%, #7CB342 50%, #7CB342 100%); 
+            z-index: 1000; 
+        }
+
+        /* ========================================
+           3. HEADER SECTION
+           ======================================== */
+        header { 
+            background: #EF4444; 
+            padding: 40px 0; 
+            margin-top: 8px; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        header::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            width: 300px; 
+            height: 100%; 
+            background: #DC2626; 
+            transform: skewX(-15deg); 
+            transform-origin: top right; 
+        }
+        header::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 250px; 
+            height: 100%; 
+            background: #7CB342; 
+            transform: skewX(-15deg); 
+            transform-origin: bottom left; 
+            opacity: 0.3; 
+        }
+        /* .header-content { 
+            position: relative; 
+            z-index: 2; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+        } */
+        .header-content { 
+            position: relative; 
+            z-index: 2; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 20px;
+            /* keep layout stable on wide screens but allow clean wrapping */
+            align-items: flex-start;
+        }
+        .header-left { flex: 1; }
+        .header-badge {
+            display: inline-block;
+            background: white;
+            color: #EF4444;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        h1 { 
+            font-size: 3rem; 
+            color: white; 
+            font-weight: 800; 
+            margin-bottom: 8px; 
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        }
+        h1 span { 
+            color: #7CB342; 
+            display: inline-block; 
+            position: relative; 
+        }
+        h1 span::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: -4px; 
+            left: 0; 
+            right: 0; 
+            height: 4px; 
+            background: white; 
+            border-radius: 2px; 
+        }
+        .subtitle { 
+            color: white; 
+            font-size: 1.25rem; 
+            margin-bottom: 4px; 
+            font-weight: 600; 
+        }
+        .sub-subtitle { 
+            color: rgba(255, 255, 255, 0.9); 
+            font-size: 1rem; 
+        }
+        .header-icon {
+            background: white;
+            width: clamp(64px, 6vw, 120px); /* ukuran responsif */
+            height: block;
+            border-radius: 50%; 
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            margin-left: 18px; /* penggaris kecil agar tidak terlalu ke kanan */
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            flex-shrink: 0;
+            animation: pulse 2s infinite; 
+        }
+        /* .header-icon { 
+            background: white; 
+            width: 80px; 
+            height: 80px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); 
+            animation: pulse 2s infinite; 
+        } */
+        @keyframes pulse { 
+            0%, 100% { transform: scale(1); } 
+            50% { transform: scale(1.05); } 
+        }
+        .header-icon svg { 
+            width: 48px; 
+            height: 48px; 
+            color: #7CB342; 
+        }
+
+        /* ========================================
+           4. STATISTICS CARDS
+           ======================================== */
+        .stats-section { 
+            margin: -40px 0 40px 0; 
+            position: relative; 
+            z-index: 10; 
+        }
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 24px; 
+        }
+        .stat-card { 
+            background: white; 
+            border-radius: 20px; 
+            padding: 32px; 
+            position: relative; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .stat-card::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 6px; 
+            background: #7CB342; 
+            transition: all 0.3s ease; 
+        }
+        .stat-card:nth-child(2)::before { background: #EF4444; }
+        .stat-card:nth-child(3)::before { background: linear-gradient(90deg, #EF4444 0%, #7CB342 100%); }
+        .stat-card:hover { 
+            transform: translateY(-12px) scale(1.02); 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); 
+        }
+        .stat-card:hover::before { 
+            height: 100%; 
+            opacity: 0.05; 
+        }
+        .stat-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+        }
+        .stat-icon-box { 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 16px; 
+            background: linear-gradient(135deg, #7CB342 0%, #8BC34A 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 8px 16px rgba(124, 179, 66, 0.3); 
+        }
+        .stat-card:nth-child(2) .stat-icon-box { 
+            background: linear-gradient(135deg, #EF4444 0%, #F87171 100%); 
+            box-shadow: 0 8px 16px rgba(239, 68, 68, 0.3); 
+        }
+        .stat-card:nth-child(3) .stat-icon-box { 
+            background: linear-gradient(135deg, #7CB342 0%, #EF4444 100%); 
+        }
+        .stat-icon-box svg { 
+            width: 32px; 
+            height: 32px; 
+            color: white; 
+        }
+        .stat-info h3 { 
+            color: #6B7280; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            margin-bottom: 8px; 
+        }
+        .stat-number { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            color: #1F2937; 
+            line-height: 1; 
+            margin-bottom: 8px; 
+        }
+        .stat-label { 
+            color: #9CA3AF; 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+        }
+
+        /* ========================================
+           5. SEARCH & FILTER SECTION
+           ======================================== */
+        .search-section { 
+            background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%); 
+            border-radius: 24px; 
+            padding: 32px; 
+            margin-bottom: 40px; 
+            border: 3px solid white; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); 
+        }
+        .search-header { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            margin-bottom: 24px; 
+        }
+        .search-header svg { 
+            width: 32px; 
+            height: 32px; 
+            color: #EF4444; 
+        }
+        .search-header h2 { 
+            font-size: 1.5rem; 
+            color: #1F2937; 
+            font-weight: 700; 
+        }
+        .search-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 24px; 
+        }
+        .search-group label { 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            color: #374151; 
+            font-weight: 700; 
+            margin-bottom: 12px; 
+            font-size: 1rem; 
+        }
+        .search-input-wrapper { position: relative; }
+        .search-input { 
+            width: 100%; 
+            padding: 16px 20px; 
+            padding-right: 50px; 
+            background: white; 
+            border: 3px solid #E5E7EB; 
+            border-radius: 16px; 
+            color: #1F2937; 
+            font-size: 1rem; 
+            font-weight: 500; 
+            transition: all 0.3s ease; 
+        }
+        .search-input:focus { 
+            outline: none; 
+            border-color: #7CB342; 
+            box-shadow: 0 0 0 4px rgba(124, 179, 66, 0.1); 
+        }
+        .search-input::placeholder { 
+            color: #9CA3AF; 
+            font-weight: 400; 
+        }
+        .search-icon { 
+            position: absolute; 
+            right: 16px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            color: #7CB342; 
+            width: 24px; 
+            height: 24px; 
+        }
+        .category-filters { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+        }
+        .category-btn { 
+            padding: 12px 24px; 
+            border-radius: 12px; 
+            border: 3px solid #E5E7EB; 
+            background: white; 
+            color: #4B5563; 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        .category-btn:hover { 
+            background: #F9FAFB; 
+            border-color: #7CB342; 
+            color: #7CB342; 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px rgba(124, 179, 66, 0.2); 
+        }
+        .category-btn.active { 
+            background: #7CB342; 
+            color: white; 
+            border-color: #7CB342; 
+            box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4); 
+        }
+
+        /* ========================================
+           6. KBLI CARDS
+           ======================================== */
+        .kbli-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); 
+            gap: 28px; 
+            margin-bottom: 48px; 
+        }
+        .kbli-card { 
+            background: white; 
+            border-radius: 20px; 
+            border: 3px solid #E5E7EB; 
+            overflow: hidden; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); 
+            position: relative; 
+            display: flex;
+            flex-direction: column;
+        }
+        .kbli-card::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 8px; 
+            background: linear-gradient(90deg, #EF4444 0%, #7CB342 100%); 
+            transition: height 0.3s ease; 
+        }
+        .kbli-card:hover { 
+            border-color: #7CB342; 
+            transform: translateY(-8px) scale(1.02); 
+            box-shadow: 0 16px 40px rgba(124, 179, 66, 0.25); 
+        }
+        .kbli-card:hover::before { height: 12px; }
+        .kbli-header { 
+            padding: 28px; 
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .kbli-badges { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+            margin-bottom: 20px; 
+            gap: 12px; 
+        }
+        .kbli-code { 
+            background: #EF4444; 
+            padding: 10px 20px; 
+            border-radius: 12px; 
+            color: white; 
+            font-weight: 800; 
+            font-size: 0.9rem; 
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); 
+            letter-spacing: 1px; 
+        }
+        .kbli-category { 
+            background: #F0FDF4; 
+            padding: 8px 16px; 
+            border-radius: 12px; 
+            color: #16A34A; 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            border: 2px solid #7CB342; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        .kbli-title { 
+            color: #1F2937; 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            margin-bottom: 12px; 
+            transition: color 0.3s ease; 
+            line-height: 1.3; 
+            min-height: 3.6rem;
+        }
+        .kbli-card:hover .kbli-title { color: #7CB342; }
+        .kbli-description { 
+            color: #6B7280; 
+            font-size: 0.95rem; 
+            margin-bottom: 12px; 
+            line-height: 1.6; 
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 3rem;
+        }
+        .kbli-description.expanded {
+            -webkit-line-clamp: unset;
+            display: block;
+            min-height: auto;
+        }
+        .read-more-btn {
+            color: #7CB342;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+        .read-more-btn:hover {
+            color: #8BC34A;
+            gap: 8px;
+        }
+        .read-more-btn svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+        .read-more-btn.expanded svg {
+            transform: rotate(180deg);
+        }
+        .kbli-footer { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding-top: 16px; 
+            border-top: 2px solid #F3F4F6; 
+            margin-top: auto;
+        }
+        .product-count { 
+            color: #374151; 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        .chevron { 
+            color: #7CB342; 
+            transition: all 0.3s ease; 
+            width: 28px; 
+            height: 28px; 
+            background: #F0FDF4; 
+            border-radius: 8px; 
+            padding: 6px; 
+        }
+        .kbli-card.expanded .chevron { 
+            transform: rotate(90deg); 
+            background: #7CB342; 
+            color: white; 
+        }
+
+        /* ========================================
+           7. PRODUCT LIST
+           ======================================== */
+        .kbli-products { 
+            background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%); 
+            border-top: 3px solid #E5E7EB; 
+            padding: 28px; 
+            display: none;
+            cursor: default;
+        }
+        .kbli-card.expanded .kbli-products { 
+            display: block; 
+            animation: slideDown 0.3s ease; 
+        }
+        @keyframes slideDown { 
+            from { opacity: 0; transform: translateY(-10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        .products-title { 
+            color: #1F2937; 
+            font-weight: 800; 
+            margin-bottom: 20px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 1.1rem; 
+        }
+        .products-list { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+        }
+        .product-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            background: white; 
+            padding: 16px; 
+            border-radius: 14px; 
+            border: 2px solid #E5E7EB; 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+        }
+        .product-item.highlight {
+            background: #FEF3C7;
+            border-color: #F59E0B;
+            animation: highlightPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes highlightPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+        }
+        .product-item:hover { 
+            background: #F0FDF4; 
+            border-color: #7CB342; 
+            transform: translateX(8px); 
+            box-shadow: 0 4px 12px rgba(124, 179, 66, 0.15); 
+        }
+        .product-item.highlight:hover {
+            background: #FDE68A;
+        }
+        .product-number { 
+            background: linear-gradient(135deg, #7CB342 0%, #8BC34A 100%); 
+            color: white; 
+            font-weight: 800; 
+            font-size: 0.85rem; 
+            width: 36px; 
+            height: 36px; 
+            border-radius: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            flex-shrink: 0; 
+            box-shadow: 0 4px 10px rgba(124, 179, 66, 0.3); 
+        }
+        .product-name { 
+            color: #374151; 
+            transition: color 0.3s ease; 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            flex: 1; 
+        }
+        .product-item:hover .product-name { color: #16A34A; }
+
+        /* ========================================
+           8. EMPTY STATE
+           ======================================== */
+        .empty-state { 
+            grid-column: 1 / -1; 
+            background: white; 
+            border-radius: 20px; 
+            padding: 80px; 
+            text-align: center; 
+            border: 3px dashed #E5E7EB; 
+        }
+        .empty-title { 
+            color: #1F2937; 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            margin-bottom: 8px; 
+        }
+        .empty-text { 
+            color: #6B7280; 
+            font-size: 1rem; 
+        }
+
+        /* ========================================
+           9. FOOTER INFO BOX
+           ======================================== */
+        .footer-info { 
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); 
+            border-radius: 24px; 
+            padding: 40px; 
+            margin-bottom: 40px; 
+            display: flex; 
+            gap: 24px; 
+            align-items: center; 
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.3); 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .footer-info::before { 
+            content: ''; 
+            position: absolute; 
+            top: -50%; 
+            right: -10%; 
+            width: 300px; 
+            height: 300px; 
+            background: #7CB342; 
+            border-radius: 50%; 
+            opacity: 0.2; 
+        }
+        .footer-icon-box { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 16px; 
+            flex-shrink: 0; 
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); 
+            position: relative; 
+            z-index: 1; 
+        }
+        .footer-icon-box svg { 
+            color: #7CB342; 
+            width: 40px; 
+            height: 40px; 
+        }
+        .footer-content { 
+            position: relative; 
+            z-index: 1; 
+        }
+        .footer-content h3 { 
+            color: white; 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            margin-bottom: 12px; 
+        }
+        .footer-content p { 
+            color: rgba(255, 255, 255, 0.95); 
+            font-size: 1rem; 
+            line-height: 1.8; 
+        }
+
+        /* ========================================
+           10. MINISTRY FOOTER
+           ======================================== */
+        .ministry-footer { 
+            background: #1F2937; 
+            padding: 48px 0 32px 0; 
+            margin-top: 60px; 
+        }
+        .ministry-content { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 40px; 
+            margin-bottom: 32px; 
+        }
+        .ministry-section h4 { 
+            color: white; 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            margin-bottom: 16px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .ministry-section h4 svg { 
+            width: 24px; 
+            height: 24px; 
+            color: #7CB342; 
+        }
+        .ministry-section p { 
+            color: #D1D5DB; 
+            line-height: 1.8; 
+            margin-bottom: 8px; 
+            font-size: 0.95rem; 
+        }
+        .ministry-section a { 
+            color: #7CB342; 
+            text-decoration: none; 
+            transition: color 0.3s ease; 
+        }
+        .ministry-section a:hover { 
+            color: #8BC34A; 
+            text-decoration: underline; 
+        }
+        .ministry-logo { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 16px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 16px; 
+            margin-bottom: 16px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+        }
+        .ministry-logo-icon { 
+            width: 60px; 
+            height: 60px; 
+            background: linear-gradient(135deg, #EF4444 0%, #7CB342 100%); 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .ministry-logo-icon svg { 
+            width: 36px; 
+            height: 36px; 
+            color: white; 
+        }
+        .ministry-logo-text { 
+            text-align: left;
+            margin-left: 20px; }
+        .ministry-logo-text h5 { 
+            color: #1F2937; 
+            font-size: 1.1rem; 
+            font-weight: 800; 
+            margin-bottom: 4px; 
+        }
+        .ministry-logo-text p { 
+            color: #6B7280; 
+            font-size: 0.85rem; 
+            margin: 0; 
+        }
+        .ministry-divider { 
+            border-top: 2px solid #374151; 
+            margin: 32px 0; 
+        }
+        .ministry-copyright { 
+            text-align: center; 
+            color: #9CA3AF; 
+            font-size: 0.9rem; 
+        }
+
+        /* ========================================
+           11. MODAL
+           ======================================== */
+        .modal-overlay { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0; 
+            background: rgba(0, 0, 0, 0.7); 
+            z-index: 9998; 
+        }
+        .modal-overlay.active { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        .modal { 
+            background: white; 
+            border-radius: 24px; 
+            max-width: 900px; 
+            width: 100%; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            position: relative; 
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); 
+        }
+        .modal-header { 
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); 
+            padding: 32px; 
+            border-radius: 24px 24px 0 0; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .modal-header::before { 
+            content: ''; 
+            position: absolute; 
+            top: -50%; 
+            right: -10%; 
+            width: 300px; 
+            height: 300px; 
+            background: #7CB342; 
+            border-radius: 50%; 
+            opacity: 0.2; 
+        }
+        .modal-close { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            background: white; 
+            border: none; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: all 0.3s ease; 
+            z-index: 1; 
+        }
+        .modal-close:hover { 
+            background: #F3F4F6; 
+            transform: rotate(90deg); 
+        }
+        .modal-title-section { 
+            position: relative; 
+            z-index: 1; 
+        }
+        .modal-kbli-code { 
+            display: inline-block; 
+            background: white; 
+            color: #EF4444; 
+            padding: 8px 16px; 
+            border-radius: 12px; 
+            font-size: 0.85rem; 
+            font-weight: 800; 
+            margin-bottom: 12px; 
+            letter-spacing: 1px; 
+        }
+        .modal-title { 
+            color: white; 
+            font-size: 2rem; 
+            font-weight: 800; 
+            margin-bottom: 8px; 
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+        }
+        .modal-subtitle { 
+            color: rgba(255, 255, 255, 0.9); 
+            font-size: 1rem; 
+        }
+        .modal-body { padding: 32px; }
+        .modal-description { 
+            color: #4B5563; 
+            font-size: 1.05rem; 
+            line-height: 1.8; 
+            background: #F9FAFB; 
+            padding: 20px; 
+            border-radius: 12px; 
+            border-left: 4px solid #7CB342; 
+        }
+        .logo-kemenperin {
+            width: clamp(64px, 12vw, 182px); 
+            max-height: 160px;
+            height: auto; 
+            object-fit: contain;
+            border-radius: 12%;
+            background: #fff;
+            box-shadow: 0 4px 16px rgba(124, 179, 66, 0.12);
+            border: 3px solid #7CB342;
+            padding: 6px;
+            display: block;
+            margin: 0; 
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                gap: 12px;
+                align-items: center;
+                justify-content: center;
+            }
+            .header-left {
+                flex: 1 1 100%;
+                text-align: center; 
+            }
+            .header-icon {
+                margin-left: 0;
+                margin-top: 8px;
+                order: 2;
+                align-self: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .logo-kemenperin {
+                width: clamp(56px, 18vw, 120px);
+                max-height: 88px;
+                border-radius: 10%;
+                padding: 4px;
+            }
+            .logo-kemenperin1 {
+                width: clamp(36px, 10vw, 80px);
+                padding: 4px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .logo-kemenperin { width: clamp(48px, 22vw, 96px); max-height: 72px; }
+            .ministry-logo { gap: 12px; }
+            .ministry-logo-text { margin-left: 12px; }
+        }
+        /* .logo-kemenperin {
+            width: 182px;
+            height: 142px;
+            object-fit: contain;
+            border-radius: 20%;
+            background: #fff;
+            box-shadow: 0 4px 16px rgba(124, 179, 66, 0.15);
+            border: 3px solid #7CB342;
+            padding: 8px;
+            display: block;
+            margin-right: 100px;
+        } */
+        .logo-kemenperin1 {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 20%;
+            background: #fff;
+            box-shadow: 0 4px 16px rgba(124, 179, 66, 0.15);
+            /* border: 3px solid #7CB342; */
+            padding: 8px;
+            display: block;
+            margin-left: 20px;
+        }
+        /* ========================================
+           12. RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .header-icon { width: 60px; height: 60px; }
+            .kbli-grid { grid-template-columns: 1fr; }
+            .stat-number { font-size: 2.5rem; }
+            .footer-info { flex-direction: column; text-align: center; }
+            .modal-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration-top"></div>
+
+    <!-- <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="header-badge">KEMENTERIAN PERINDUSTRIAN RI</div>
+                    <h1>Jenis Produk per-<span>KBLI</span></h1>
+                    <p class="subtitle">Tim Kerja Elektronika dan Telematika</p>
+                    <p class="sub-subtitle">Direktorat IKM Logam, Mesin, Elektronika, dan Aneka</p>
+                </div>
+                <div class="header-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect x="2" y="6" width="20" height="12" rx="2"/>
+                        <path d="M6 12h.01M10 12h.01M14 12h.01"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header> -->
+
+    <header>
+    <div class="container">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="header-badge">KEMENTERIAN PERINDUSTRIAN RI</div>
+                <h1>Jenis Produk per-<span>KBLI</span></h1>
+                <p class="subtitle">Tim Kerja Elektronika dan Telematika</p>
+                <p class="sub-subtitle">Direktorat IKM Logam, Mesin, Elektronika, dan Alat Angkut</p>
+            </div>
+            <div class="header-icon">
+                <img src="/R.png" 
+                     alt="Logo Kemenperin" class="logo-kemenperin">
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div class="container">
+        
+        <!-- STATISTICS CARDS -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-info">
+                            <h3>Total KBLI</h3>
+                            <div class="stat-number" id="totalKBLI">7</div>
+                            <p class="stat-label">KBLI</p>
+                        </div>
+                        <div class="stat-icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-info">
+                            <h3>Total Produk</h3>
+                            <div class="stat-number" id="totalProducts">49</div>
+                            <p class="stat-label">Produk Binaan</p>
+                        </div>
+                        <div class="stat-icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-info">
+                            <h3>Hasil Pencarian</h3>
+                            <div class="stat-number" id="searchResults">7</div>
+                            <p class="stat-label">KBLI Ditemukan</p>
+                        </div>
+                        <div class="stat-icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="M21 21l-4.35-4.35"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEARCH & FILTER SECTION -->
+        <div class="search-section">
+            <div class="search-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <h2>Cari & Filter Data KBLI</h2>
+            </div>
+            <div class="search-grid">
+                <div class="search-group">
+                    <label>Pencarian Cepat</label>
+                    <div class="search-input-wrapper">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Ketik kode KBLI, atau nama produk...">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="search-group">
+                    <label>Filter Berdasarkan Kategori</label>
+                    <div class="category-filters" id="categoryFilters"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kbli-grid" id="kbliGrid"></div>
+
+        <div class="footer-info">
+            <div class="footer-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                </svg>
+            </div>
+            <div class="footer-content">
+                <h3>Tentang Website Ini</h3>
+                <p>Website ini menampilkan klasifikasi jenis produk per-KBLI (Klasifikasi Baku Lapangan Usaha Indonesia) yang berada di bawah binaan Tim Kerja Elektronika dan Telematika, Direktorat IKM LMEA.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="ministry-footer">
+        <div class="container">
+            <div class="ministry-content">
+                <div class="ministry-section">
+                    <div class="ministry-logo">
+                        <div class="ministry-logo-icon">
+                            <img src="/R.png" 
+                                alt="Logo Kemenperin" class="logo-kemenperin1">
+                        </div>
+                        <div class="ministry-logo-text">
+                            <h5>KEMENTERIAN PERINDUSTRIAN</h5>
+                            <p>Republik Indonesia</p>
+                        </div>
+                    </div>
+                    <!-- <p><strong>Kementerian Perindustrian</strong><br>Republik Indonesia</p> -->
+                </div>
+                
+                <div class="ministry-section">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Alamat Kantor
+                    </h4>
+                    <p>Jl. Jend. Gatot Subroto Kav. 52-53<br>Jakarta Selatan 12950<br>DKI Jakarta, Indonesia</p>
+                </div>
+                
+                <div class="ministry-section">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                        </svg>
+                        Kontak
+                    </h4>
+                    <p>Telepon: (021) 525 2507<br>Fax: (021) 525 2886<br>Email: <a href="mailto:info@kemenperin.go.id">info@kemenperin.go.id</a></p>
+                </div>
+                
+                <div class="ministry-section">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="2" y1="12" x2="22" y2="12"/>
+                            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                        </svg>
+                        Website Resmi
+                    </h4>
+                    <p><a href="https://kemenperin.go.id" target="_blank" rel="noopener">www.kemenperin.go.id</a></p>
+                    <p style="margin-top: 16px;"><strong>Tim Kerja Elektronika dan Telematika</strong><br>Direktorat IKM Logam, Mesin, Elektronika, dan Alat Angkut</p>
+                </div>
+            </div>
+            
+            <div class="ministry-divider"></div>
+            
+            <div class="ministry-copyright">
+                <p>&copy; 2024 Kementerian Perindustrian Republik Indonesia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:24px;height:24px">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="modal-title-section">
+                    <div class="modal-kbli-code" id="modalKBLICode">KBLI</div>
+                    <h2 class="modal-title" id="modalTitle">Nama Produk</h2>
+                    <p class="modal-subtitle" id="modalCategory">Kategori</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description" id="modalDescription">Deskripsi produk</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ========================================
+           DATABASE KBLI 
+           ======================================== */
+        const kbliData = [
+            {
+                kode: '26120',
+                nama: 'Industri Semi Konduktor Dan Komponen Elektronik Lainnya',
+                kategori: 'Elektronika',
+                deskripsi: 'Kelompok ini mencakup pembuatan semi konduktor dan komponen elektronik lainnya. Termasuk transistor, IC, modul, sensor, komponen layar, serta sel fotovoltaik dan chip smartcard.',
+                produk: [
+                    'Transistor',
+                    'Mikrokontroler',
+                    'Kumparan/Coil',
+                    'Trafo/Transformator elektronik',
+                    'Programmable Logic Controller (PLC)',
+                    'Kartu suara (Sound card)',
+                    'Kartu video (Video card)',
+                    'Kontroler',
+                    'Kartu jaringan (Network card)',
+                    'Modem',
+                    'Chip smartcard',
+                    'integrated circuit',
+                    'Printed circuits',
+                    'Induktor',
+                    'Resistor',
+                    'Kapasitor',
+                    'Mikroprosesor',
+                    'Kristal elektronik dan crystal assemblies',
+                    'Solenoida',
+                    'Switch',
+                    'Transducer untuk aplikasi elektronik',
+                    'Interface cards',
+                    'Komponen layar (Plasma)',
+                    'Komponen layar (Polimer)',
+                    'Komponen layar (LCD)',
+                    'Light Emitting Diodes (LED)',
+                    'Dioda'
+                ],
+                deskripsiProduk: {
+                    'Transistor': 'Komponen semikonduktor aktif untuk penguatan sinyal dan fungsi switching pada rangkaian analog/digital.',
+                    'Mikrokontroler': 'Chip terintegrasi yang menggabungkan CPU, memori, dan periferal untuk kontrol perangkat tertanam.',
+                    'Kumparan/Coil': 'Elemen induktif untuk penyimpanan energi magnetik, filtering dan tuning frekuensi pada rangkaian.',
+                    'Trafo/Transformator elektronik': 'Perangkat untuk menaikkan/menurunkan tegangan dan isolasi antar-sirkuit pada pasokan dan catu daya.',
+                    'Programmable Logic Controller (PLC)': 'Unit kontrol industri yang diprogram untuk otomasi proses, sequencing dan pengendalian mesin.',
+                    'Kartu suara (Sound card)': 'Modul pemroses audio untuk input/output suara pada komputer dan perangkat multimedia.',
+                    'Kartu video (Video card)': 'Perangkat pemroses grafis untuk rendering dan output tampilan; termasuk GPU dan modul akselerasi.',
+                    'Kontroler': 'Unit pengendali untuk fungsi spesifik (disk, storage, motor, I/O) dalam sistem elektronik.',
+                    'Kartu jaringan (Network card)': 'Perangkat untuk konektivitas jaringan (Ethernet/Wi‑Fi) pada komputer dan peralatan komunikasi.',
+                    'Modem': 'Perangkat modulasi/demodulasi sinyal untuk transmisi data melalui saluran komunikasi.',
+                    'Chip smartcard': 'Mikrochip untuk kartu pintar yang menyimpan data aman dan mendukung autentikasi/transaksi.',
+                    'integrated circuit': 'Rangkaian terpadu (IC) mencakup fungsi logika, analog, amplifier dan power management dalam satu paket.',
+                    'Printed circuits': 'Papan sirkuit cetak (PCB) sebagai platform pemasangan dan interkoneksi untuk komponen elektronik.',
+                    'Induktor': 'Komponen pasif untuk penyimpanan energi magnetik, filtering dan resonansi pada power electronics.',
+                    'Resistor': 'Komponen pasif untuk pengendalian arus, pembagian tegangan dan setting karakteristik rangkaian.',
+                    'Kapasitor': 'Komponen penyimpan energi listrik untuk filtrasi, smoothing dan pengaturan respon frekuensi.',
+                    'Mikroprosesor': 'Unit pemrosesan pusat (CPU) untuk pemrosesan data, kontrol sistem dan aplikasi komputasi tinggi.',
+                    'Kristal elektronik dan crystal assemblies': 'Sumber frekuensi presisi (kristal/oscillator) untuk clock, timing dan stabilitas sinyal.',
+                    'Solenoida': 'Aktuator elektromagnetik untuk penggerak mekanis pada valve, lock, dan aplikasi otomasi.',
+                    'Switch': 'Sakelar elektronik/mechanik untuk pemutusan/pemilihan jalur sinyal pada peralatan atau panel.',
+                    'Transducer untuk aplikasi elektronik': 'Sensor/aktuator yang mengubah besaran fisik (tekanan, suhu, gaya) menjadi sinyal listrik atau sebaliknya.',
+                    'Interface cards': 'Kartu ekspansi/interface (I/O, serial, USB, PCIe) untuk menambah fungsionalitas pada sistem komputer/industri.',
+                    'Komponen layar (Plasma)': 'Panel dan modul komponen untuk layar plasma termasuk driver dan modul kontrol tampilan.',
+                    'Komponen layar (Polimer)': 'Material dan modul untuk layar berbasis polimer (mis. OLED fleksibel) termasuk substrat dan lapisan aktif.',
+                    'Komponen layar (LCD)': 'Segmen, backlight dan driver untuk tampilan kristal cair pada monitor, panel instrumen dan consumer electronics.',
+                    'Light Emitting Diodes (LED)': 'Sumber cahaya semikonduktor efisien energi untuk indikator, pencahayaan dan display.',
+                    'Dioda': 'Komponen semikonduktor untuk penyearahan, proteksi, switching dan fungsi deteksi sinyal.'
+                }
+            },
+            {
+                kode: '26210',
+                nama: 'Industri Komputer dan Perlengkapan Komputer',
+                kategori: 'Komputer',
+                deskripsi: 'Kelompok ini mencakup pembuatan komputer dan perlengkapannya, termasuk notebook, desktop, server, tablet, firewall, serta perangkat interaktif.',
+                produk: [
+                    'Komputer laptop',
+                    'Komputer induk/Mainframe',
+                    'Komputer genggam (handheld)',
+                    'Komputer tablet',
+                    'Komputer analog',
+                    'Komputer digital',
+                    'Komputer hibrid',
+                    'PC (Personal Computer)',
+                    'Smartboard (papan tulis interaktif)',
+                    'Perangkat interaktif (anjungan) layanan mandiri',
+                    'Terminal komputer',
+                    'Komputer dengan fungsi khusus untuk keamanan siber',
+                    'Firewall (tembok api)',
+                    'Network Detection and Response (NDR)',
+                    'Komputer desktop',
+                    'Komputer interaktif',
+                    'IFP',
+                    'Server komputer',
+                    'Server data'
+                ],
+                deskripsiProduk: {
+                    'Komputer laptop': 'Komputer portabel serbaguna untuk produktivitas dan multimedia, menggabungkan baterai, layar, dan input dalam satu unit.',
+                    'Komputer induk/Mainframe': 'Sistem komputasi berkapasitas sangat besar untuk pemrosesan data terpusat di skala enterprise dan institusi besar.',
+                    'Komputer genggam (handheld)': 'Perangkat komputasi ringkas untuk aplikasi mobile dan industri lapangan dengan antarmuka input sederhana.',
+                    'Komputer tablet': 'Perangkat layar sentuh portabel untuk akses aplikasi, pengolahan data ringan, dan penggunaan di lapangan.',
+                    'Komputer analog': 'Sistem komputasi yang bekerja dengan sinyal kontinu untuk aplikasi kontrol atau pengolahan sinyal tertentu.',
+                    'Komputer digital': 'Sistem berbasis logika listrik/digital untuk pemrosesan data umum, server, dan aplikasi embedded.',
+                    'Komputer hibrid': 'Perangkat convertible yang menggabungkan fungsi laptop dan tablet untuk fleksibilitas penggunaan.',
+                    'PC (Personal Computer)': 'Komputer desktop untuk keperluan pribadi atau kantor dengan konfigurasi hardware standar.',
+                    'Smartboard (papan tulis interaktif)': 'Layar interaktif besar untuk presentasi, pembelajaran, dan kolaborasi di ruang kelas/meeting.',
+                    'Perangkat interaktif (anjungan) layanan mandiri': 'Kiosk/terminal publik untuk layanan mandiri seperti pembayaran, informasi, dan registrasi.',
+                    'Terminal komputer': 'Unit antarmuka untuk akses sistem pusat atau aplikasi industri, termasuk POS dan workstation terminal.',
+                    'Komputer dengan fungsi khusus untuk keamanan siber': 'Sistem yang dirancang untuk inspeksi, analisis, dan proteksi lalu lintas jaringan serta sistem keamanan informasi.',
+                    'Firewall (tembok api)': 'Perangkat/solusi yang memfilter dan mengatur lalu lintas jaringan untuk melindungi sistem dari ancaman eksternal.',
+                    'Network Detection and Response (NDR)': 'Sistem pemantauan jaringan yang mendeteksi anomali dan merespons ancaman keamanan siber pada trafik jaringan.',
+                    'Komputer desktop': 'Sistem stasioner untuk kantor atau workstation dengan kemampuan upgrade komponen untuk kebutuhan khusus.',
+                    'Komputer interaktif': 'Perangkat komputasi dengan antarmuka interaktif untuk edukasi, presentasi, dan layanan publik.',
+                    'IFP': 'Interactive Flat Panel; layar datar interaktif untuk kolaborasi, menulis digital, dan presentasi terpadu.',
+                    'Server komputer': 'Mesin yang menyediakan layanan jaringan, penyimpanan, dan pemrosesan untuk aplikasi multi‑user.',
+                    'Server data': 'Server yang dioptimalkan untuk penyimpanan, manajemen, dan distribusi data berskala enterprise.'
+                }
+            },
+            {
+                kode: '26220',
+                nama: 'Industri Perlengkapan Komputer',
+                kategori: 'Komputer',
+                deskripsi: 'Kelompok ini mencakup pembuatan perlengkapan komputer seperti printer, scanner, monitor, proyektor, keyboard, mouse, panel sentuh, terminal komputer, perangkat POS, pembaca barcode, pembaca kartu, pembaca biometrik, webcam, dan berbagai periferal komputer lainnya.',
+                produk: [
+                    'Mesin cetak/printer',
+                    'Pemindai/Scanner',
+                    'Proyektor komputer',
+                    'Box penyimpanan harddisk',
+                    'Smart card reader',
+                    'Disk drive magnetik',
+                    'Flash drive',
+                    'Disk drive optik (CD-RW, CD-ROM, DVD-ROM, DVD-RW)',
+                    'Monitor',
+                    'Keyboard',
+                    'Mouse',
+                    'Joystick',
+                    'Aksesori trackball',
+                    'Barcode scanner',
+                    'Mixed reality devices',
+                    'Terminal komputer',
+                    'Virtual reality helmets',
+                    'Augmented reality glasses',
+                    'Anjungan tunai mandiri (ATM)',
+                    'Terminal point of sale (POS)'
+                ],
+                deskripsiProduk: {
+                    'Mesin cetak/printer': 'Perangkat untuk mencetak dokumen dan gambar pada berbagai media; termasuk teknologi laser, inkjet, thermal dan label printer industri.',
+                    'Pemindai/Scanner': 'Perangkat yang mengubah dokumen atau gambar fisik menjadi file digital untuk arsip, OCR, dan proses otomatisasi dokumen.',
+                    'Proyektor komputer': 'Unit proyeksi yang menampilkan output visual dari komputer untuk presentasi, edukasi, dan tampilan besar di acara/ruang meeting.',
+                    'Box penyimpanan harddisk': 'Enclosure eksternal untuk HDD/SSD yang menyediakan daya, interface (USB/Thunderbolt/eSATA) dan proteksi mekanis untuk penyimpanan cadangan.',
+                    'Smart card reader': 'Perangkat pembaca kartu pintar untuk autentikasi, pembayaran, dan transaksi data aman berbasis chip smartcard.',
+                    'Disk drive magnetik': 'Unit penyimpanan rotasional (HDD) yang menggunakan piringan magnetik untuk penyimpanan data berkapasitas besar.',
+                    'Flash drive': 'Media penyimpanan portabel berbasis NAND flash (USB flash drive) untuk transfer dan backup data cepat.',
+                    'Disk drive optik (CD-RW, CD-ROM, DVD-ROM, DVD-RW)': 'Perangkat baca/tulis optik untuk format CD/DVD, digunakan untuk instalasi perangkat lunak, arsip, dan distribusi data.',
+                    'Monitor': 'Layar tampilan visual untuk komputer; mencakup LCD, LED, IPS, panel gaming dan monitor industri dengan berbagai ukuran dan resolusi.',
+                    'Keyboard': 'Perangkat input utama untuk mengetik; meliputi varian mekanik, membran, nirkabel, dan khusus ergonomis.',
+                    'Mouse': 'Perangkat penunjuk untuk navigasi antarmuka grafis; termasuk optical, laser, nirkabel, dan gaming mouse berpresisi tinggi.',
+                    'Joystick': 'Perangkat kontrol input untuk permainan dan aplikasi simulasi; tersedia model analog, digital, dan force-feedback.',
+                    'Aksesori trackball': 'Perangkat penunjuk alternatif berbasis bola untuk kontrol presisi, sering dipakai di ruang kerja terbatas atau aplikasi industri.',
+                    'Barcode scanner': 'Perangkat pembaca kode batang untuk keperluan inventaris, ritel, logistik dan POS dengan interface USB/serial/wireless.',
+                    'Mixed reality devices': 'Perangkat yang menggabungkan elemen virtual dan dunia nyata untuk aplikasi industri, pelatihan dan produktivitas kolaboratif.',
+                    'Terminal komputer': 'Unit workstation/terminal untuk akses sistem pusat, informasi publik, POS, atau penggunaan kios layanan mandiri.',
+                    'Virtual reality helmets': 'Headset VR untuk immersif visual dan interaksi pada simulasi, pelatihan, hiburan dan desain 3D.',
+                    'Augmented reality glasses': 'Kacamata AR yang menampilkan informasi digital lapis atas pandangan dunia nyata untuk bantuan kerja, navigasi dan maintenance.',
+                    'Anjungan tunai mandiri (ATM)': 'Mesin layanan perbankan otomatis untuk penarikan, setoran dan layanan transaksi lain dengan keamanan tinggi dan antarmuka pengguna.',
+                    'Terminal point of sale (POS)': 'Perangkat kasir terintegrasi untuk transaksi penjualan ritel, termasuk layar, pembaca barcode, printer struk dan perangkat pembayaran.'
+                }
+            },
+            {
+                kode: '26399',
+                nama: 'Industri Peralatan Komunikasi Lainnya',
+                kategori: 'Komunikasi',
+                deskripsi: 'Kelompok ini mencakup pembuatan alat-alat transmisi komunikasi lainnya yang tidak diklasifikasikan di tempat lain, termasuk encoder/decoder, multiplexer, peralatan studio, perangkat jaringan, peralatan RF, perangkat telekomunikasi, sistem monitoring jaringan, serta berbagai perangkat tambahan komunikasi lainnya. Termasuk juga pembuatan set top box untuk terestrial dan satelit.',
+                produk: [
+                    'Alat kelistrikan Komunikasi Lainnya',
+                    'Peralatan televisi kabel',
+                    'Decoder sinyal kabel',
+                    'Modem kabel (Cable Modem)',
+                    'Encoder/decoder',
+                    'Multiplexer',
+                    'Amplifier dan Repeater',
+                    'Network monitoring system',
+                    'RF modulator',
+                    'Peralatan studio televisi dan radio',
+                    'Switcher video/Video mixer',
+                    'Vision mixer',
+                    'Audio mixer untuk studio TV',
+                    'Lighting control system',
+                    'Intercom system (talkback)',
+                    'Camera control unit (CCU)',
+                    'Remote camera controller',
+                    'Audio mixing console/mixer radio',
+                    'Microphone processor',
+                    'Audio processor',
+                    'Broadcast console',
+                    'On-air lighting system',
+                    'Studio monitor speaker',
+                    'Headphone distribution system',
+                    'Digital audio workstation (DAW) hardware',
+                    'Audio router/matrix',
+                    'Talkback system',
+                    'Telephone hybrid',
+                    'Peralatan studio penyiaran',
+                    'Kamera studio broadcast',
+                    'Steadicam/Camera stabilizer',
+                    'Camera jib/crane',
+                    'Kamera video profesional',
+                    'Cinema camera',
+                    '4K/8K broadcast camera',
+                    'Slow motion camera',
+                    'Multi-camera system',
+                    'Wireless camera system',
+                    '360-degree camera',
+                    'Arloji pintar/Smart watch',
+                    'Modul Bluetooth',
+                    'Modul RF',
+                    'Modul GSM',
+                    'Peralatan konektivitas IoT lainnya',
+                    'Panel kontrol akses',
+                    'Switch',
+                    'PABX',
+                    'Set Top Box',
+                    'CCTV',
+                    'Gateway',
+                    'Patch cord',
+                    'Rak Server',
+                    'Modem',
+                    'Transmitor radio dan televisi',
+                    'remote kontrol',
+                    'EDC (Electronic Data Capture)',
+                    'Antena transmisi',
+                    'Antena Penerima',
+                    'Pesawat telepon tanpa kabel',
+                    'bridge',
+                    'router',
+                    'Private Branch Exchange'
+                ],
+                deskripsiProduk: {
+                    'Alat kelistrikan Komunikasi Lainnya': 'Perangkat listrik dan aksesori yang mendukung sistem komunikasi, termasuk power supply, distribusi daya, dan proteksi untuk peralatan komunikasi.',
+                    'Peralatan televisi kabel': 'Perangkat untuk pengelolaan, modulasi dan distribusi layanan TV lewat jaringan kabel (headend, modul distribusi, headend controllers).',
+                    'Decoder sinyal kabel': 'Unit untuk mendekode dan mendeskripsi sinyal TV kabel yang dikirim oleh penyedia layanan.',
+                    'Modem kabel (Cable Modem)': 'Perangkat untuk menghubungkan pelanggan ke jaringan broadband kabel, melakukan modulasi/demodulasi sinyal data.',
+                    'Encoder/decoder': 'Perangkat untuk mengubah sinyal audio/video ke format terkompresi untuk transmisi dan sebaliknya untuk playback.',
+                    'Multiplexer': 'Perangkat yang menggabungkan beberapa aliran data atau sinyal menjadi satu kanal transmisi terintegrasi.',
+                    'Amplifier dan Repeater': 'Perangkat penguat sinyal RF atau audio untuk memperpanjang jangkauan dan meningkatkan kualitas transmisi.',
+                    'Network monitoring system': 'Sistem untuk memantau kinerja jaringan, mendeteksi gangguan dan mengelola kapasitas jaringan.',
+                    'RF modulator': 'Perangkat yang mengubah sinyal baseband menjadi sinyal frekuensi radio untuk distribusi RF.',
+                    'Peralatan studio televisi dan radio': 'Perlengkapan produksi siaran seperti mixer, console, kamera, intercom, dan peralatan kontrol studio.',
+                    'Switcher video/Video mixer': 'Perangkat untuk memilih dan memadukan beberapa sumber video selama produksi langsung atau rekaman.',
+                    'Vision mixer': 'Mixer video profesional untuk produksi live yang menggabungkan switching, keying, dan efek gambar.',
+                    'Audio mixer untuk studio TV': 'Konsol audio untuk mengontrol level, routing, dan efek sinyal audio pada produksi siaran televisi.',
+                    'Lighting control system': 'Sistem kontrol pencahayaan profesional untuk studio, panggung, dan set siaran dengan kemampuan pemrograman adegan.',
+                    'Intercom system (talkback)': 'Sistem komunikasi internal untuk tim produksi guna koordinasi selama siaran dan rekaman.',
+                    'Camera control unit (CCU)': 'Unit kontrol kamera yang mengatur parameter gambar (iris, gain, white balance) pada kamera broadcast dari jarak jauh.',
+                    'Remote camera controller': 'Perangkat kontrol jarak jauh untuk pan/tilt/zoom dan parameter kamera pada instalasi broadcast atau pengawasan.',
+                    'Audio mixing console/mixer radio': 'Konsol mixing audio untuk stasiun radio dan studio rekaman dengan routing multi‑kanal dan pemrosesan sinyal.',
+                    'Microphone processor': 'Perangkat pemrosesan suara untuk meningkatkan kualitas input mikrofon seperti gating, EQ, dan compression.',
+                    'Audio processor': 'Unit pemrosesan audio untuk broadcast yang menyediakan limiter, compressor, dan kontrol loudness sebelum siaran.',
+                    'Broadcast console': 'Konsol integrasi untuk operasi on‑air yang menggabungkan audio routing, monitoring, dan kontrol sinyal siaran.',
+                    'On-air lighting system': 'Sistem pencahayaan khusus untuk studio on-air yang mendukung kualitas gambar televisi dan kenyamanan talent.',
+                    'Studio monitor speaker': 'Speaker referensi untuk monitoring audio di studio dengan respon frekuensi presisi.',
+                    'Headphone distribution system': 'Sistem distribusi headphone untuk mengirimkan auriculares ke beberapa pengguna dengan kontrol level individual.',
+                    'Digital audio workstation (DAW) hardware': 'Perangkat keras untuk produksi audio digital seperti audio interface, kontroler dan unit pemrosesan khusus.',
+                    'Audio router/matrix': 'Sistem routing audio skala besar untuk mengalihkan sumber audio ke berbagai output sesuai kebutuhan produksi.',
+                    'Talkback system': 'Sistem komunikasi dua arah untuk instruksi langsung antara produser/engineer dan talent/teknisi selama produksi.',
+                    'Telephone hybrid': 'Perangkat penghubung telepon ke meja audio/console untuk mengintegrasikan panggilan telepon ke siaran atau rekaman.',
+                    'Peralatan studio penyiaran': 'Kumpulan perangkat untuk operasi studio termasuk switcher, recorder, encoder, dan monitoring tools.',
+                    'Kamera studio broadcast': 'Kamera profesional dengan output SDI/12G‑SDI untuk produksi studio dan integrasi CCU.',
+                    'Steadicam/Camera stabilizer': 'Perangkat stabilisasi kamera untuk menghasilkan gambar halus saat bergerak pada produksi film/TV.',
+                    'Camera jib/crane': 'Perangkat pembuat gerakan kamera vertikal/horisontal untuk shot dinamis pada produksi siaran dan film.',
+                    'Kamera video profesional': 'Kamera tingkat profesional untuk event, berita, dan produksi yang mendukung codec dan koneksi broadcast.',
+                    'Cinema camera': 'Kamera berkinerja tinggi untuk produksi film dengan sensor besar, dynamic range luas dan workflow RAW/ProRes.',
+                    '4K/8K broadcast camera': 'Kamera broadcast resolusi tinggi untuk produksi dan distribusi konten UHD/8K.',
+                    'Slow motion camera': 'Kamera high‑speed yang merekam pada frame rate sangat tinggi untuk efek slow motion detail.',
+                    'Multi-camera system': 'Integrasi beberapa kamera untuk produksi live, switching, dan replay terkoordinasi.',
+                    'Wireless camera system': 'Sistem kamera nirkabel untuk transmisi video high‑quality tanpa kabel pada produksi dan liputan lapangan.',
+                    '360-degree camera': 'Kamera omnidirectional untuk pembuatan konten VR dan pengalaman interaktif 360°.',
+                    'Arloji pintar/Smart watch': 'Perangkat wearable yang menyediakan notifikasi, sensor kesehatan, komunikasi dan konektivitas nirkabel.',
+                    'Modul Bluetooth': 'Modul komunikasi nirkabel Bluetooth untuk konektivitas perangkat consumer dan IoT. ',
+                    'Modul RF': 'Modul pemancar/penerima frekuensi radio untuk komunikasi nirkabel dan telemetry pada berbagai aplikasi.',
+                    'Modul GSM': 'Modul komunikasi seluler GSM untuk konektivitas suara/data pada perangkat IoT atau terminal mobile. ',
+                    'Peralatan konektivitas IoT lainnya': 'Perangkat dan modul untuk konektivitas IoT termasuk gateway, sensor nirkabel, dan edge devices.',
+                    'Panel kontrol akses': 'Perangkat dan kontroler untuk manajemen akses gedung termasuk pembaca kartu, keypad dan perangkat pemrosesan akses.',
+                    'Switch': 'Perangkat jaringan layer‑2/3 untuk menghubungkan perangkat dalam LAN dan menyediakan manajemen lalu lintas paket.',
+                    'PABX': 'Sistem telepon internal (Private Automatic Branch Exchange) untuk pengelolaan panggilan internal/eksternal pada organisasi.',
+                    'Set Top Box': 'Perangkat penerima set‑top untuk dekode layanan TV digital, IPTV atau satelit untuk penggunaan konsumen. ',
+                    'CCTV': 'Sistem kamera pengawas untuk keamanan dan pemantauan lokasi dengan recording dan manajemen video terpusat.',
+                    'Gateway': 'Perangkat penghubung antar‑jaringan yang menerjemahkan protokol dan menyediakan akses antara sistem berbeda.',
+                    'Patch cord': 'Kabel fleksibel untuk koneksi short‑reach di patch panel, switch dan peralatan rack dengan berbagai konnektor. ',
+                    'Rak Server': 'Struktur fisik untuk penataan server, storage, dan peralatan jaringan dalam pusat data atau ruang IT. ',
+                    'Modem': 'Perangkat modulasi/demodulasi sinyal untuk konektivitas data melalui saluran komunikasi tertentu. ',
+                    'Transmitor radio dan televisi': 'Perangkat pemancar utama untuk penyiaran radio dan televisi pada frekuensi terpilih. ',
+                    'remote kontrol': 'Perangkat pengendali jarak jauh untuk TV, kamera, dan peralatan audio‑visual. ',
+                    'EDC (Electronic Data Capture)': 'Terminal pembaca kartu untuk pembayaran elektronik dan transaksi retail (POS swiper/EDC).',
+                    'Antena transmisi': 'Antenna dirancang untuk memancarkan sinyal RF pada frekuensi tertentu untuk telekomunikasi atau broadcast. ',
+                    'Antena Penerima': 'Antenna yang dioptimalkan untuk menerima sinyal RF dari udara atau satelit. ',
+                    'Pesawat telepon tanpa kabel': 'Telepon rumah/kantor nirkabel (DECT/cordless) untuk komunikasi internal dan eksternal. ',
+                    'bridge': 'Perangkat jaringan yang menghubungkan dua segmen LAN untuk memperluas domain jaringan. ',
+                    'router': 'Perangkat yang mengarahkan lalu lintas data antar jaringan berbeda dan mengelola kebijakan routing. ',
+                    'Private Branch Exchange': 'Sistem telepon internal (PBX) yang menyediakan fitur panggilan routing, voicemail, dan manajemen panggilan untuk organisasi.'
+                }
+            },
+            {
+                kode: "26410",
+                nama: "Industri Televisi Dan/Atau Perakitan Televisi",
+                kategori: "Multimedia",
+                deskripsi: "Kelompok ini mencakup pembuatan televisi, pesawat penerima televisi, monitor televisi, dan kegiatan perakitan televisi.",
+                produk: [
+                    "Running text",
+                    "Televisi",
+                    "Videotron"
+                ],
+                deskripsiProduk: {
+                    "Running text": "Modul LED untuk menampilkan teks berjalan pada papan informasi dan iklan; biasanya terdiri dari rangkaian LED SMD dan kontroler tampilan.",
+                    "Televisi": "Perangkat penerima audio-visual (LED/LCD/OLED) lengkap dengan tuner dan rangkaian pemrosesan sinyal untuk konsumsi konten rumah dan komersial.",
+                    "Videotron": "Layar LED berukuran besar untuk penggunaan outdoor/indoor pada iklan, signage, dan event dengan modul panel, power supply, dan kontroler video."
+                }
+            },
+            { 
+                kode: '26490',
+                nama: 'Industri Peralatan Audio dan Video Elektronik Lainnya',
+                kategori: 'Multimedia',
+                deskripsi: 'Kelompok ini mencakup pembuatan peralatan elektronik audio dan video selain televisi, termasuk mikrofon, amplifier, speaker, peralatan multimedia, perangkat audio-video personal maupun home theater, dan perangkat hiburan lainnya.',
+                produk: [
+                    'Mikrofon',
+                    'Perangkat Multimedia',
+                    'Amplifier',
+                    'Speaker',
+                    'Peralatan audio dan video personal',
+                    'Peralatan audio dan video untuk home theater',
+                    'Alat pengeras suara untuk menyampaikan informasi',
+                    'Amplifier untuk instrumen musik',
+                    'Loudspeaker',
+                    'Headphone',
+                    'Mesin karaoke',
+                    'Konsol video game'
+                ],
+                deskripsiProduk: {
+                    'Mikrofon': 'Perangkat pengubah gelombang suara menjadi sinyal listrik untuk perekaman, siaran, atau penguat suara.',
+                    'Perangkat Multimedia': 'Pemutar/pengolah audio-video seperti set-top box, media player, dan dekoder untuk konten digital.',
+                    'Amplifier': 'Perangkat untuk memperkuat sinyal audio agar dapat menggerakkan speaker pada level volume yang dibutuhkan.',
+                    'Speaker': 'Transducer yang mengubah sinyal listrik menjadi suara untuk aplikasi portable, studio, PA, atau home theater.',
+                    'Peralatan audio dan video personal': 'Perangkat portabel seperti pemutar musik, pemutar video portable, dan gadget multimedia pribadi.',
+                    'Peralatan audio dan video untuk home theater': 'Sistem dan komponen untuk pengalaman audio-visual di rumah termasuk receiver, subwoofer, dan soundbar.',
+                    'Alat pengeras suara untuk menyampaikan informasi': 'Unit PA dan horn speaker untuk pengumuman publik dan sistem evakuasi.',
+                    'Amplifier untuk instrumen musik': 'Amplifier khusus untuk gitar, bass, dan instrumen lain dengan karakter penguat yang sesuai.',
+                    'Loudspeaker': 'Jenis speaker berdaya tinggi untuk panggung, konser, atau instalasi publik.',
+                    'Headphone': 'Perangkat keluaran audio pribadi untuk monitoring atau konsumen.',
+                    'Mesin karaoke': 'Sistem hiburan yang menggabungkan pemutar lagu, mikrofon, mixer, dan efek suara untuk karaoke.',
+                    'Konsol video game': 'Perangkat hiburan elektronik khusus untuk menjalankan permainan video dengan kontrol input dan output multimedia.'
+                }
+            },
+            {
+                kode: '26512',
+                nama: 'Industri Peralatan Pengukuran, Pengujian, Navigasi dan Kontrol',
+                kategori: 'Alat Uji',
+                deskripsi: 'Kelompok ini mencakup pembuatan peralatan untuk pengukuran, pengujian, navigasi, dan kontrol, termasuk instrumen laboratorium, alat ukur listrik, alat ukur industri, sensor, instrumen monitoring, serta perangkat kalibrasi dan diagnostik.',
+                produk: [
+                    'Alat simulasi/ Praktikum/ Training Elektrik',
+                    'Alat simulasi elektrik',
+                    'Alat Ukur /Alat Laboratorium Elektrik',
+                    'Alat Laboratorium Elektrik',
+                    'Alat ukur listrik',
+                    'monitoring dan pengontrol elektrik',
+                    'Simulasi Panel Listrik',
+                ],
+                deskripsiProduk: {
+                    'Alat simulasi/ Praktikum/ Training Elektrik': 'Perangkat edukasi dan kit praktikum untuk pembelajaran kelistrikan dan elektronika; meliputi trainer board, modul eksperimen, dan rangkaian praktikum untuk mahasiswa dan pelatihan vokasional.',
+                    'Alat simulasi elektrik': 'Sistem simulasi rangkaian elektrik baik berbasis perangkat keras maupun software‑hardware hybrid untuk pengujian desain, troubleshooting, dan pelatihan teknisi.',
+                    'Alat Ukur /Alat Laboratorium Elektrik': 'Instrumen bench untuk laboratorium seperti power supply presisi, function generator, oscilloscope bench, dan alat ukur referensi untuk penelitian dan pengembangan.',
+                    'Alat Laboratorium Elektrik': 'Perlengkapan laboratorium untuk uji kelistrikan dan karakterisasi komponen termasuk beban terprogram, sumber arus/tegangan, dan perangkat keselamatan laboratorium.',
+                    'Alat ukur listrik': 'Instrumen portabel dan panel seperti multimeter digital, clamp meter, power analyzer, insulation tester, earth resistance tester untuk pengukuran tegangan, arus, daya, dan resistansi.',
+                    'monitoring dan pengontrol elektrik': 'Sistem monitoring dan kontrol yang mencakup PLC, RTU, data logger, sensor terintegrasi, SCADA/HMI untuk pemantauan kondisi, kontrol proses, dan proteksi sistem tenaga.',
+                    'Simulasi Panel Listrik': 'Panel latihan yang mereplikasi instalasi distribusi dan kontrol (switchgear, relai proteksi, starter motor) untuk praktik wiring, pengujian proteksi, dan skenario troubleshooting.'
+                }       
+            },
+            {
+                kode: '26513',
+                nama: 'Industri Peralatan Ukur, Uji dan Navigasi',
+                kategori: 'Alat Uji',
+                deskripsi: 'Kelompok ini mencakup kegiatan pembuatan peralatan ukur, uji dan navigasi, seperti alat ukur untuk meteorologi, hidrologi, alat navigasi, dan peralatan kontrol industri.',
+                produk: [
+                    'Alat ukur/ Alat laboratorium elektronik',
+                    'Alat simulasi / praktikum / training elektronik',
+                    'EWS',
+                    'Neraca',
+                    'Perangkat/modul monitoring dan pengontrolan elektrik',
+                    'Timbangan Digital',
+                    'Timbangan Kendaraan',
+                    'alat ukur',
+                    'Data logger',
+                    'Fire Alarm'
+                ],
+                deskripsiProduk: {
+                    'Alat ukur/ Alat laboratorium elektronik': 'Instrumen bench dan portabel yang digunakan di laboratorium untuk pengukuran parameter listrik/elektronik (oscilloscope, power analyzer, source/measure, signal generator) dan kalibrasi komponen.',
+                    'Alat simulasi / praktikum / training elektronik': 'Kit dan modul praktik untuk pendidikan dan pelatihan teknik listrik/elektronika, mencakup papan trainer, simulator rangkaian, serta lingkungan pengujian untuk eksperimen dan pembelajaran.',
+                    'EWS': 'Early Warning System (sistem peringatan dini) yang mengintegrasikan sensor, unit pemrosesan dan saluran komunikasi untuk deteksi bahaya seperti banjir, gempa atau kebakaran dan pemberitahuan cepat ke pemangku kepentingan.',
+                    'Neraca': 'Alat ukur massa dengan berbagai tingkat akurasi dari neraca laboratorium analitik hingga timbangan industri; digunakan untuk penelitian, kontrol kualitas dan proses produksi.',
+                    'Perangkat/modul monitoring dan pengontrolan elektrik': 'Unit monitoring dan kontrol berbasis PLC/RTU/embedded untuk pemantauan parameter listrik, kendali proses, logging dan integrasi SCADA/HMI pada instalasi industri.',
+                    'Timbangan Digital': 'Timbangan elektronik dengan display digital, sensor load cell dan antarmuka komunikasi untuk aplikasi ritel, laboratorium dan industri pengolahan.',
+                    'Timbangan Kendaraan': 'Sistem timbangan skala besar (truck scale) untuk mengukur muatan kendaraan di logistik, pertanian dan industri, sering kali dilengkapi software pencatatan dan integrasi jaringan.',
+                    'alat ukur': 'Kategori umum instrumen pengukuran (tekanan, suhu, aliran, kelembaban, pH, konduktivitas, dll.) yang digunakan pada proses industri, lingkungan dan penelitian.',
+                    'Data logger': 'Perangkat perekam data yang mengumpulkan dan menyimpan pembacaan sensor secara berkala (suhu, tekanan, arus, tegangan, dll.) untuk analisis, audit atau pemantauan jarak jauh.',
+                    'Fire Alarm': 'Sistem deteksi dan peringatan kebakaran mencakup detektor asap/nyala, control panel, output alarm dan interkoneksi dengan sistem evakuasi dan pemadam otomatis.'
+                }
+
+            },
+            {
+                kode: '26514',
+                nama: 'INDUSTRI ALAT UJI DALAM PROSES INDUSTRI',
+                kategori: 'Alat Uji',
+                deskripsi: 'Kelompok ini mencakup pembuatan berbagai peralatan untuk pengukuran, pengujian dan kontrol dalam proses industri, seperti alat ukur suhu, panas, tekanan, kekentalan, maupun alat ukur sifat-sifat barang.',
+                produk: [
+                    'Alat Kontrol Mesin Industri',
+                    'Alat Ukur Industri'
+                ],
+                deskripsiProduk: {}
+            },
+            {
+                kode: '26602',
+                nama: 'INDUSTRI PERALATAN ELEKTROMEDIKAL DAN ELEKTROTERAPI',
+                kategori: 'Elektromedik',
+                deskripsi: 'Kelompok ini mencakup pembuatan peralatan dan perlengkapan elektromedik seperti peralatan diagnostik medis, peralatan terapi, alat bantu dengar, alat pacu jantung, serta berbagai instrumen elektromedik lainnya.',
+                produk: [
+                    'Air purifier',
+                    'Nurse call system',
+                    'Peralatan tes mata',
+                    'Scanner diagnostik medis',
+                    'Magnetic Resonance Imaging (MRI)',
+                    'Peralatan ultrasonografi (USG)',
+                    'Endoskopi elektromedik',
+                    'X-ray film viewer',
+                    'Peralatan terapi ozon',
+                    'Peralatan terapi oksigen',
+                    'Peralatan laser medis',
+                    'Alat pijat medis elektrik',
+                    'Alat bantu dan terapi pernapasan',
+                    'Ventilator elektromedik',
+                    'Alat pacu jantung (Pacemaker)',
+                    'Alat bantu dengar (Hearing aid)',
+                    'Peralatan elektromedik dan elektroterapi dengan fitur IoT',
+                    'Resuscitator',
+                    'EKG',
+                    'Elektromedik',
+                    'Alat monitor medis',
+                    'Inkubator',
+                    'Video laryngoscope',
+                    'Radiologi',
+                    'Sterilizer medis',
+                    'Alat Ukur Medis',
+                    'Alat Terapi',
+                    'Peralatan Laboratorium Medis'
+                ],
+                deskripsiProduk: {
+                    'Air purifier': 'Perangkat filtrasi udara kelas medis yang mengurangi partikel, mikroorganisme dan VOC untuk menjaga kualitas udara ruangan perawatan.',
+                    'Nurse call system': 'Sistem komunikasi pasien-ke-perawat untuk panggilan bantuan, monitoring dan koordinasi respons klinis di fasilitas kesehatan.',
+                    'Peralatan tes mata': 'Instrumen oftalmologi seperti autorefraktor, slit-lamp, tonometer dan alat diagnosis mata lainnya.',
+                    'Scanner diagnostik medis': 'Perangkat pemindai medis untuk akuisisi citra klinis seperti CT, PET dan perangkat pencitraan lainnya.',
+                    'Magnetic Resonance Imaging (MRI)': 'Sistem pencitraan resonansi magnetik untuk diagnosa jaringan lunak dengan resolusi tinggi.',
+                    'Peralatan ultrasonografi (USG)': 'Unit imaging ultrasonik dan transducer untuk pemeriksaan kehamilan, kardiovaskular dan organ internal.',
+                    'Endoskopi elektromedik': 'Perangkat endoskopi fleksibel/kaku untuk visualisasi internal dan prosedur invasif minimal beserta aksesori steril.',
+                    'X-ray film viewer': 'Panel penerang untuk pemeriksaan radiografi film dan pelengkap workstation radiologi.',
+                    'Peralatan terapi ozon': 'Unit terapi ozon terkontrol untuk aplikasi medis tertentu berdasarkan protokol klinis.',
+                    'Peralatan terapi oksigen': 'Konsentrator, regulator dan aksesoris untuk pemberian oksigen medis dan terapi pernapasan.',
+                    'Peralatan laser medis': 'Sistem laser untuk bedah, dermatologi, oftalmologi dan terapi dengan kontrol daya presisi.',
+                    'Alat pijat medis elektrik': 'Perangkat terapi fisik elektromekanik untuk rehabilitasi, relaksasi otot dan pemulihan fungsi.',
+                    'Alat bantu dan terapi pernapasan': 'Perangkat CPAP/BiPAP, nebulizer dan perangkat terapi non-invasive untuk gangguan pernapasan.',
+                    'Ventilator elektromedik': 'Mesin pendukung napas untuk dukungan pernapasan pasien di ICU dengan mode ventilasi beragam dan alarm keselamatan.',
+                    'Alat pacu jantung (Pacemaker)': 'Perangkat implantable yang mengatur ritme jantung untuk pasien dengan gangguan konduksi jantung.',
+                    'Alat bantu dengar (Hearing aid)': 'Perangkat amplifikasi suara portabel untuk rehabilitasi pendengaran pasien.',
+                    'Peralatan elektromedik dan elektroterapi dengan fitur IoT': 'Perangkat medis terkoneksi untuk monitoring jarak jauh, telemetri dan integrasi data pasien ke sistem rumah sakit.',
+                    'Resuscitator': 'Peralatan resusitasi manual dan otomatis untuk mendukung napas dan sirkulasi pada kondisi darurat.',
+                    'EKG': 'Electrocardiograph untuk merekam aktivitas listrik jantung dan membantu diagnostik kardiak.',
+                    'Elektromedik': 'Kategori umum peralatan medis bertenaga listrik termasuk instrumentasi diagnostik dan terapeutik.',
+                    'Alat monitor medis': 'Monitor tanda vital seperti ECG, SpO2, tekanan darah dan central monitoring system untuk pengawasan pasien.',
+                    'Inkubator': 'Perangkat fermen/pengendali suhu untuk perawatan neonatal dan proses kultur laboratorium sesuai standar klinis.',
+                    'Video laryngoscope': 'Perangkat laringoskop video untuk membantu intubasi dengan visualisasi saluran napas secara real-time.',
+                    'Radiologi': 'Peralatan dan sistem radiologi termasuk unit rontgen, fluoroskopi dan perangkat terkait untuk imaging diagnostik.',
+                    'Sterilizer medis': 'Autoclave dan sistem sterilisasi untuk instrumentasi medis menggunakan uap, gas atau teknologi lain yang disetujui klinis.',
+                    'Alat Ukur Medis': 'Instrumen pengukuran medis presisi seperti flowmeter, spirometer, monitor glukosa, dan perangkat kalibrasi medis.',
+                    'Alat Terapi': 'Perangkat untuk aplikasi terapi non-invasif atau invasif termasuk terapi fisik, elektroterapi dan terapi gelombang.',
+                    'Peralatan Laboratorium Medis': 'Peralatan analitik dan penunjang laboratorium klinis seperti centrifuge, hematology analyzer, spectrometer dan incubator.'
+                }
+            },
+            {
+                kode: '27120',
+                nama: 'INDUSTRI PERALATAN PENGONTROL DAN PENDISTRIBUSIAN LISTRIK',
+                kategori: 'Kelistrikan',
+                deskripsi: 'Kelompok ini mencakup usaha pembuatan panel listrik, switchgear, perangkat proteksi listrik, komponen distribusi daya, peralatan pengontrol aliran listrik, serta peralatan pendukung sistem distribusi tenaga listrik, kecuali tombol tekan, snap, solenoida, tumbler, dan KWH meter.',
+                produk: [
+                    'Peralatan Distribusi Listrik',
+                    'Pengaliran sakelar tertutup',
+                    'Panel Distribusi Listrik',
+                    'Circuit Breaker',
+                    'sekering',
+                    'Peralatan Panel Listrik',
+                    'Switch Listrik',
+                    'Relai',
+                    'Voltage Regulator',
+                    'Panel Listrik',
+                    'Peralatan Jaringan',
+                    'Control panel otomatis',
+                    'Lighting distribution board',
+                    'Isolator switch',
+                    'Load Break Switch (LBS)',
+                    'Earth Switch',
+                    'Thermal Overload Relay (TOR)',
+                    'Earth Leakage Circuit Breaker (ELCB)',
+                    'Angker dinamo',
+                    'Surge suppressor',
+                    'switchboard aliran listrik',
+                    'KWH meter'
+                ],
+                deskripsiProduk: {
+                    'Peralatan Distribusi Listrik': 'Perangkat dan komponen untuk mendistribusikan tenaga listrik dari sumber ke sirkuit akhir termasuk panel, busbar, dan aksesori pemasangan.',
+                    'Pengaliran sakelar tertutup': 'Unit switchgear tertutup yang memungkinkan pengoperasian dan proteksi pada jaringan listrik dengan keamanan tinggi.',
+                    'Panel Distribusi Listrik': 'Papan distribusi yang menampung pemutus sirkuit, pengukuran, dan proteksi untuk sirkuit bangunan atau industri.',
+                    'Circuit Breaker': 'Pemutus sirkuit otomatis yang memutus aliran listrik saat terjadi arus lebih atau hubung singkat untuk melindungi instalasi.',
+                    'sekering': 'Perangkat proteksi sekali pakai yang memutus sirkuit saat arus melebihi nilai yang aman.',
+                    'Peralatan Panel Listrik': 'Komponen panel seperti terminal block, contactor, meter, indikator, dan pengaman untuk panel kontrol/distribusi.',
+                    'Switch Listrik': 'Sakelar manual atau otomatis untuk menghubungkan/ memutuskan sirkuit listrik pada instalasi.',
+                    'Relai': 'Perangkat proteksi/ kontrol elektronik yang mendeteksi gangguan dan mengendalikan pemutus sirkuit atau rangkaian.',
+                    'Voltage Regulator': 'Perangkat untuk menjaga tegangan keluaran stabil terhadap fluktuasi sumber atau beban.',
+                    'Panel Listrik': 'Istilah umum untuk enclosure yang menampung perangkat distribusi, proteksi, dan kontrol listrik.',
+                    'Peralatan Jaringan': 'Peralatan konektivitas dan proteksi untuk integrasi sistem tenaga serta komunikasi pada infrastruktur listrik.',
+                    'Control panel otomatis': 'Panel yang berisi PLC, contactor, starter, dan perangkat kontrol lain untuk otomasi proses dan pengendalian daya.',
+                    'Lighting distribution board': 'Panel khusus untuk distribusi sirkuit penerangan dengan proteksi dan pengelompokan sirkuit lampu.',
+                    'Isolator switch': 'Sakelar pemisah yang memberikan isolasi visual untuk memastikan keamanan saat pemeliharaan.',
+                    'Load Break Switch (LBS)': 'Sakelar yang mampu memutuskan arus beban dalam kondisi operasi normal tanpa membutuhkan pemutus utama.',
+                    'Earth Switch': 'Perangkat pentanahan yang digunakan untuk memastikan instalasi terhubung ke tanah saat perawatan untuk keselamatan teknisi.',
+                    'Thermal Overload Relay (TOR)': 'Proteksi motor berbasis panas yang memutus suplai jika terjadi overcurrent berkepanjangan akibat beban berlebih.',
+                    'Earth Leakage Circuit Breaker (ELCB)': 'Perangkat proteksi yang mendeteksi kebocoran arus ke tanah dan memutus suplai untuk mencegah kejutan listrik.',
+                    'Angker dinamo': 'Kumparan berputar pada dinamo/generator yang membawa arus dan berperan dalam pembangkitan atau penggerak mekanis.',
+                    'Surge suppressor': 'Perangkat pelindung yang meredam lonjakan tegangan transient (surge) untuk melindungi peralatan sensitif.',
+                    'switchboard aliran listrik': 'Panel utama pengatur aliran tenaga antara sumber, transformator, dan feeder ke beban besar.',
+                    'KWH meter': 'Meter energi listrik yang mencatat pemakaian energi (kWh) untuk monitoring dan penagihan.'
+                }
+            },
+            {
+                kode: '27202',
+                nama: 'INDUSTRI AKUMULATOR LISTRIK',
+                kategori: 'Kelistrikan',
+                deskripsi: 'Kelompok ini mencakup usaha pembuatan macam-macam akumulator (baterai isi ulang) beserta komponennya seperti pelat, separator, wadah, penutup, pole, dan jepitan aki (tipe gigi).',
+                produk: [
+                    'Baterai',
+                    'Jepitan aki',
+                    'separator aki',
+                    'Pelat aki',
+                    'Wadah aki',
+                    'Penutup aki',
+                    'pole aki'
+                ],
+                deskripsiProduk: {
+                    'Baterai': 'Sel elektro-kimia yang menyimpan dan menyediakan energi listrik; mencakup jenis lead-acid, NiMH, lithium-ion untuk aplikasi otomotif, industri, dan penyimpanan energi.',
+                    'Jepitan aki': 'Terminal clamp atau connector yang menghubungkan kutub baterai ke sistem listrik kendaraan atau peralatan; dibuat dari bahan konduktif dan tahan korosi.',
+                    'separator aki': 'Material pemisah antar pelat elektroda yang mencegah hubungan pendek sekaligus memungkinkan aliran ion; bahan umum meliputi mikropori polimer atau kaca serat.',
+                    'Pelat aki': 'Elektroda aktif (pelat positif/negatif) yang menyimpan muatan dalam baterai; dapat berupa pelat timbal untuk baterai lead-acid atau material lain sesuai teknologi sel.',
+                    'Wadah aki': 'Enclosure yang menampung sel dan komponen baterai, biasanya terbuat dari plastik tahan bahan kimia (PP) atau logam untuk aplikasi khusus.',
+                    'Penutup aki': 'Komponen penutup yang menutup wadah baterai, menyertakan ventilasi, seal, dan titik terminal untuk koneksi eksternal dan keamanan operasi.',
+                    'pole aki': 'Terminal kutub positif/negatif yang menjadi titik sambungan eksternal baterai; dirancang untuk koneksi mekanis yang aman dan konduktivitas tinggi.'
+                }
+            },
+            {
+                kode: '27330',
+                nama: 'INDUSTRI PERLENGKAPAN KABEL',
+                kategori: 'Kelistrikan',
+                deskripsi: 'Kelompok ini mencakup usaha pembuatan fitting, soket, steker, konektor kabel, busbar, dudukan lampu, tombol tekan, snap switches, face plates dan sejenisnya, serta peralatan pole line plastik.',
+                produk: [
+                    'Penangkal petir',
+                    'konektor kabel',
+                    'Fitting listrik',
+                    'Sakelar listrik',
+                    'steker',
+                    'Busbar',
+                    'Kabel penghantar tembaga',
+                    'Kabel penghantar aluminium',
+                    'Dudukan lampu',
+                    'Konduktor listrik',
+                    'Soket listrik',
+                    'Tombol tekan (Push button)',
+                    'Snap switches',
+                    'Tumbler switches',
+                    'Kotak untuk peralatan kawat listrik',
+                    'Pipa pelindung kabel (Conduit)',
+                    'Line hardware',
+                    'Pole line plastik',
+                    'Face plates',
+                    'Koil listrik',
+                    'Junction box',
+                    'Switch box',
+                    'Outlet box',
+                    'Kabel listrik',
+                    'transmission pole',
+                    'Frame socket',
+                    'Cover plate',
+                    'Kabel tray plastik',
+                    'penutup saklar',
+                    'pole line plastik'
+                ],
+                deskripsiProduk: {
+                    'Penangkal petir': 'Sistem proteksi eksternal yang menyalurkan energi sambaran petir ke bumi untuk melindungi bangunan dan instalasi listrik.',
+                    'konektor kabel': 'Komponen penghubung listrik yang memastikan sambungan mekanis dan konduktif antar-kabel atau perangkat.',
+                    'Fitting listrik': 'Aksesori pemasangan untuk instalasi kabel dan lampu seperti elbow, coupler, dan adaptor instalasi.',
+                    'Sakelar listrik': 'Perangkat untuk menghubungkan atau memutus aliran listrik pada sirkuit, tersedia dalam berbagai tipe dan rating. ',
+                    'steker': 'Colokan yang dipasang pada ujung kabel untuk menghubungkan perangkat ke soket/mains secara aman.',
+                    'Busbar': 'Konduktor berprofil untuk distribusi daya di panel dan switchgear dengan kapasitas arus besar.',
+                    'Kabel penghantar tembaga': 'Kabel konduktif berbahan tembaga dengan konduktivitas tinggi untuk transmisi tenaga dan sinyal.',
+                    'Kabel penghantar aluminium': 'Kabel berbahan aluminium yang lebih ringan dan ekonomis untuk instalasi distribusi tertentu.',
+                    'Dudukan lampu': 'Holder atau soket yang memegang lampu dan menyediakan sambungan listrik serta pemasangan mekanis.',
+                    'Konduktor listrik': 'Kawat atau kabel yang menghantarkan arus listrik, tersedia dalam berbagai ukuran dan material. ',
+                    'Soket listrik': 'Unit pemasangan yang menerima colokan/plug untuk menyediakan sambungan listrik ke peralatan.',
+                    'Tombol tekan (Push button)': 'Input kontrol mekanis untuk mengoperasikan mesin atau sirkuit dengan aksi tekan sementara atau toggle.',
+                    'Snap switches': 'Sakelar kecil dengan aksi cepat untuk deteksi posisi atau sinyal pada perangkat-elektronik dan mekanik.',
+                    'Tumbler switches': 'Sakelar tuas untuk memilih posisi on/off atau mode pada panel kontrol dan peralatan.',
+                    'Kotak untuk peralatan kawat listrik': 'Enklosur untuk menata, melindungi sambungan dan terminal kabel pada instalasi listrik.',
+                    'Pipa pelindung kabel (Conduit)': 'Saluran pelindung logam atau plastik yang melindungi kabel dari kerusakan mekanis dan lingkungan.',
+                    'Line hardware': 'Perangkat keras untuk instalasi jaringan listrik seperti clamp, bracket, insulator dan fittings penopang. ',
+                    'Pole line plastik': 'Tiang atau fitting penyangga isolasi berbahan plastik untuk instalasi kabel ringan dan aplikasi terbuka. ',
+                    'Face plates': 'Pelat penutup estetis untuk soket dan sakelar yang memberikan finishing dan perlindungan. ',
+                    'Koil listrik': 'Induktor atau kumparan yang digunakan untuk filter, transformasi kecil atau aplikasi elektromagnetik. ',
+                    'Junction box': 'Box sambungan yang menampung percabangan kabel dan terminal secara terisolasi dan rapi. ',
+                    'Switch box': 'Enklosur khusus untuk menempatkan sakelar dan komponennya pada dinding atau panel. ',
+                    'Outlet box': 'Box pemasangan outlet yang menahan soket, konektor, dan sambungan di titik distribusi listrik. ',
+                    'Kabel listrik': 'Kabel tenaga untuk transmisi dan distribusi daya di instalasi rumah, komersial, dan industri. ',
+                    'transmission pole': 'Tiang transmisi untuk menopang saluran listrik tegangan menengah/tinggi di jaringan distribusi. ',
+                    'Frame socket': 'Rangka atau holder soket yang menjadi penopang mekanis dan pengunci modul soket. ',
+                    'Cover plate': 'Pelat penutup untuk menutup bukaan box atau panel dan memberi proteksi dari kontak langsung. ',
+                    'Kabel tray plastik': 'Tray penyangga kabel berbahan plastik untuk penataan kabel yang rapi pada jalur kabel indoor. ',
+                    'penutup saklar': 'Cover atau bezel untuk melindungi badan saklar dari debu dan kontak tidak sengaja. ',
+                    'pole line plastik': 'Komponen tiang/poling plastik untuk penyangga kabel pada instalasi sederhana dan isolasi tambahan. '
+                }
+            },
+            {
+                kode: '27404',
+                nama: 'INDUSTRI LAMPU LED',
+                kategori: 'Penerangan',
+                deskripsi: 'Kelompok ini mencakup usaha pembuatan lampu LED, termasuk LED chip, LED SMD, LED COB, lampu LED untuk senter, kendaraan maupun pencahayaan umum.',
+                produk: [
+                    'Lampu utama (headlamp)',
+                    'Senter',
+                    'LED chip',
+                    'LED SMD (Surface Mounted Device)',
+                    'LED COB (Chip on Board)',
+                    'Lampu LED bohlam',
+                    'Lampu LED tabung',
+                    'Lampu LED panel',
+                    'Lampu rem (brake lamp)',
+                    'Lampu sein (turn signal)',
+                    'Lampu interior kendaraan'
+                ],
+                deskripsiProduk: {
+                    'Lampu utama (headlamp)': 'Unit pencahayaan kendaraan yang dirancang untuk memberikan penerangan jalan dengan pola sorot terkontrol dan ketahanan terhadap getaran serta suhu kerja otomotif.',
+                    'Senter': 'Perangkat penerangan portabel berbasis LED dengan efisiensi tinggi, mode output variabel, dan sumber daya baterai untuk penggunaan pribadi atau profesional.',
+                    'LED chip': 'Komponen semikonduktor sumber cahaya dasar yang menentukan efisiensi, warna (CCT) dan lumen; diproduksi untuk integrasi pada modul dan lampu akhir.',
+                    'LED SMD (Surface Mounted Device)': 'Package LED untuk pemasangan permukaan pada PCB, umum digunakan pada lampu rumah, panel, dan modul strip karena ukuran kecil dan efisiensi tinggi.',
+                    'LED COB (Chip on Board)': 'Teknologi pengemasan LED dengan kepadatan chip tinggi pada satu substrat untuk output lumen besar dan distribusi cahaya merata pada aplikasi downlight dan floodlight.',
+                    'Lampu LED bohlam': 'Lampu pengganti bohlam tradisional dengan konsumsi daya rendah, rentang warna, dan umur pakai panjang untuk penerangan rumah dan kantor.',
+                    'Lampu LED tabung': 'Pengganti lampu fluorescent linear dengan efisiensi tinggi, flicker rendah, dan pemasangan mudah untuk pencahayaan komersial dan industri.',
+                    'Lampu LED panel': 'Unit lampu datar untuk plafon atau panel instalasi, memberikan cahaya merata dan desain tipis untuk ruang kerja dan ritel.',
+                    'Lampu rem (brake lamp)': 'Lampu otomotif khusus untuk sinyal pengereman, dirancang dengan tingkat kecerahan tinggi dan respon instan untuk keselamatan lalu lintas.',
+                    'Lampu sein (turn signal)': 'Lampu indikator kendaraan dengan keluaran berkedip terkontrol, visibilitas baik, dan kompatibilitas sistem kelistrikan otomotif.',
+                    'Lampu interior kendaraan': 'Penerangan kabin kendaraan (dome, footwell, map light) yang dirancang hemat energi, tahan getar, dan memiliki varian suhu warna untuk kenyamanan penumpang.'
+                }
+            },
+            {
+                kode: '27409',
+                nama: 'INDUSTRI PERALATAN PENERANGAN LAINNYA',
+                kategori: 'Penerangan',
+                deskripsi: 'Kelompok ini mencakup usaha pembuatan atau industri peralatan penerangan dan perlengkapannya selain yang termasuk dalam kelompok lain, termasuk lampu hias, lampu dekoratif, lentera, starter, filamen, reflektor, dan perlengkapan PJU.',
+                produk: [
+                    'Lampu hias',
+                    'Penerangan Tenaga Surya',
+                    'Peralatan PJU',
+                    'PJU',
+                    'Tempat lilin (chandelier)',
+                    'Lentera karbit',
+                    'Lentera listrik',
+                    'Lentera gas',
+                    'Lentera bensin',
+                    'Lentera minyak tanah',
+                    'Lampu minyak',
+                    'Obor dekoratif',
+                    'Lampu dengan zat radioaktif',
+                    'Lampu gas'
+                ],
+                deskripsiProduk: {
+                    'Lampu hias': 'Lampu dekoratif untuk interior/eksterior yang menonjolkan estetika; tersedia model gantung, meja, dinding dan instalasi artistik.',
+                    'Penerangan Tenaga Surya': 'Sistem penerangan yang bekerja dengan panel surya, baterai dan kontroler sehingga beroperasi tanpa sambungan langsung ke jaringan listrik.',
+                    'Peralatan PJU': 'Komponen dan aksesori Penerangan Jalan Umum seperti tiang, luminaire, ballast, driver, dan pengontrol untuk instalasi publik.',
+                    'PJU': 'Unit lampu jalan dan modul terkait yang didesain tahan cuaca, hemat energi dan sesuai standar distribusi publik.',
+                    'Tempat lilin (chandelier)': 'Perlengkapan gantung multi-lampu bernilai estetika tinggi untuk ruang representatif dan komersial.',
+                    'Lentera karbit': 'Lentera tradisional berbahan bakar karbit untuk aplikasi historis atau khusus, memerlukan prosedur pengoperasian dan keselamatan tertentu.',
+                    'Lentera listrik': 'Lentera bertenaga listrik portabel atau terpasang untuk penerangan darurat dan outdoor dengan sumber baterai atau mains.',
+                    'Lentera gas': 'Lentera yang beroperasi dengan bahan bakar gas untuk penerangan di area outdoor atau aplikasi tertentu.',
+                    'Lentera bensin': 'Lentera berbahan bakar bensin untuk penggunaan lapangan yang membutuhkan perawatan dan handling bahan bakar cair.',
+                    'Lentera minyak tanah': 'Lentera tradisional menggunakan minyak tanah/kerosene sebagai bahan bakar untuk penerangan pada kondisi tanpa listrik.',
+                    'Lampu minyak': 'Perangkat penerangan berbasis minyak untuk kebutuhan klasik atau darurat yang beroperasi secara sederhana.',
+                    'Obor dekoratif': 'Perangkat berbentuk obor untuk efek visual outdoor atau dekorasi acara, tersedia versi bahan bakar dan bertenaga listrik/LED.',
+                    'Lampu dengan zat radioaktif': 'Lampu khusus yang menggunakan sumber radioaktif (mis. tritium, promethium) untuk penerangan tanpa listrik dalam aplikasi terbatas dan terregulasi; produksi dan pemasangan memerlukan kepatuhan regulasi keselamatan radioaktif.',
+                    'Lampu gas': 'Unit penerangan yang menggunakan gas sebagai sumber pembakaran untuk menghasilkan cahaya pada aplikasi tertentu.'
+                }
+            },
+            {
+                kode: "27900",
+                nama: "INDUSTRI PERALATAN LISTRIK LAINNYA",
+                kategori: "Kelistrikan",
+                deskripsi: "Kelompok ini mencakup pembuatan dinamo lampu sepeda, dinamo magnetik, busi, alat-alat peringatan suara, peralatan sinyal, berbagai peralatan listrik dan elektronik lainnya seperti charger baterai, UPS, inverter, supresor, komponen pasif (kapasitor, resistor), modul fotovoltaik, serta komponen dan perlengkapannya.",
+                produk: [
+                    "EV Charger",
+                    "Grounding",
+                    "Inverter",
+                    "Lampu rambu lalu lintas",
+                    "Palang Pintu",
+                    "Panel Surya",
+                    "Pintu listrik",
+                    "Reklame listrik",
+                    "Resistor",
+                    "Sirine / Alarm",
+                    "UPS",
+                    "Kabel",
+                    "Papan Skor Digital",
+                    "Filtrasi air",
+                    "Dinamo lampu sepeda",
+                    "Dinamo magnetik",
+                    "Busi",
+                    "Bel listrik",
+                    "Mesin pembersih ultrasonik (non-laboratorium)",
+                    "Tanning beds",
+                    "Peralatan rektifikasi (rectifier)",
+                    "Fuel cells",
+                    "Supresor gelombang (non-distribusi voltase)",
+                    "Karbon elektroda",
+                    "Grafit elektroda",
+                    "Akselerator partikel",
+                    "Kapasitor",
+                    "Patri",
+                    "Besi solder tangan",
+                    "Rokok elektrik (vape)",
+                    "Solder listrik"
+                ],
+                deskripsiProduk: {
+                    "EV Charger": "Perangkat pengisian daya untuk kendaraan listrik (EV) dengan berbagai level daya (AC / DC) dan protokol komunikasi manajemen pengisian; termasuk stasiun pengisian publik dan charger rumah.",
+                    "Grounding": "Sistem dan aksesoris pentanahan untuk menyediakan jalur aman bagi gangguan listrik dan melindungi peralatan serta keselamatan manusia.",
+                    "Inverter": "Perangkat yang mengubah tegangan DC menjadi AC untuk menyalakan peralatan rumah/industri; meliputi inverter grid‑tie, off‑grid dan hibrida dengan manajemen daya.",
+                    "Lampu rambu lalu lintas": "Unit lampu lalu lintas dan modul LED untuk pengaturan arus lalu lintas dengan kontrol timing, sensor, dan tahan cuaca.",
+                    "Palang Pintu": "Sistem penghalang otomatis untuk kontrol akses kendaraan di parkir atau gerbang, termasuk mekanik, motor, dan kontroler elektronik.",
+                    "Panel Surya": "Modul fotovoltaik untuk konversi cahaya matahari menjadi listrik DC, termasuk panel, frame, dan akun mounting untuk instalasi off-grid atau grid‑tied.",
+                    "Pintu listrik": "Pintu otomatis yang digerakkan motor listrik dan kontrol elektronik untuk akses garasi, gedung atau fasilitas industri.",
+                    "Reklame listrik": "Perangkat papan reklame bertenaga listrik (LED/neon) termasuk kontroler tampilan, driver LED, dan sistem pencahayaan terintegrasi.",
+                    "Resistor": "Komponen pasif untuk membatasi arus dan membagi tegangan pada rangkaian elektronik; tersedia dalam berbagai nilai, akurasi, dan paket.",
+                    "Sirine / Alarm": "Perangkat peringatan suara dan sistem alarm untuk keamanan, evakuasi, dan peringatan darurat pada bangunan atau industri.",
+                    "UPS": "Unit catu daya tak terputus untuk menyediakan daya cadangan sementara dan stabilisasi tegangan saat gangguan suplai listrik.",
+                    "Kabel": "Kabel daya dan sinyal untuk transmisi listrik dan komunikasi, tersedia dalam berbagai konduktor, isolasi dan kapasitas ampere.",
+                    "Papan Skor Digital": "Panel tampilan elektronik untuk menampilkan skor dan informasi real-time pada arena olahraga atau signage digital.",
+                    "Filtrasi air": "Sistem penyaringan dan pemurnian air yang menggunakan pompa, kontrol elektronik, dan sensor untuk aplikasi rumah tangga atau industri ringan.",
+                    "Dinamo lampu sepeda": "Generator kecil yang mengubah energi kinetik roda sepeda menjadi listrik untuk menyalakan lampu sepeda.",
+                    "Dinamo magnetik": "Generator berbasis magnet permanen untuk menghasilkan listrik pada aplikasi kecil hingga menengah tanpa sumber eksternal besar.",
+                    "Busi": "Komponen pengapian mesin pembakaran internal yang menghasilkan percikan untuk menyalakan campuran bahan bakar-udara.",
+                    "Bel listrik": "Perangkat bel elektromagnetik atau elektronik untuk sistem interkom, pintu dan peringatan sederhana.",
+                    "Mesin pembersih ultrasonik (non-laboratorium)": "Peralatan pembersihan ultrasonik untuk komponen industri/rumah tangga yang menggunakan transduser listrik untuk menghasilkan gelombang ultrasonik pembersih.",
+                    "Tanning beds": "Peralatan terapi UV bertenaga listrik yang digunakan pada industri kecantikan, dilengkapi sistem kontrol daya dan proteksi keselamatan.",
+                    "Peralatan rektifikasi (rectifier)": "Perangkat elektronik untuk mengubah AC menjadi DC termasuk dioda, bridge rectifier dan modul daya terkontrol untuk aplikasi industri dan power supplies.",
+                    "Fuel cells": "Sel bahan bakar yang menghasilkan listrik melalui reaksi kimia (mis. hidrogen) untuk aplikasi stasioner atau mobile sebagai sumber energi bersih.",
+                    "Supresor gelombang (non-distribusi voltase)": "Perangkat pelindung transient (surge suppressor) untuk meredam lonjakan tegangan dan melindungi peralatan elektronik sensitif.",
+                    "Karbon elektroda": "Elektroda berbahan karbon digunakan pada proses industri (elektrolisis, elektroplating) dan aplikasi listrik khusus.",
+                    "Grafit elektroda": "Elektroda grafit untuk penggunaan industri yang membutuhkan ketahanan termal dan konduktivitas listrik tinggi.",
+                    "Akselerator partikel": "Perangkat akselerator skala kecil/komponen untuk riset atau aplikasi industri yang melibatkan medan listrik/magnetik tinggi.",
+                    "Kapasitor": "Komponen penyimpan energi listrik untuk filtering, koreksi faktor daya, dan aplikasi penyimpanan energi jangka pendek.",
+                    "Patri": "Peralatan pengelasan dan pematerian listrik (brazing/soldering) untuk sambungan logam atau pengerjaan fabrikasi ringan.",
+                    "Besi solder tangan": "Alat solder portabel untuk penyolderan komponen elektronik dan perbaikan papan sirkuit dengan pemanas terintegrasi.",
+                    "Rokok elektrik (vape)": "Perangkat elektronik portabel yang menghasilkan aerosol untuk inhalasi; meliputi modul daya, elemen pemanas dan tangki e‑liquid (produksi/komponen harus mengikuti regulasi keselamatan).",
+                    "Solder listrik": "Perangkat solder industri dengan kontrol suhu untuk proses penyolderan produksi dan perbaikan elektronik."
+                }
+            },
+            {
+                kode: '28179',
+                nama: 'INDUSTRI MESIN DAN PERALATAN KANTOR LAINNYA',
+                kategori: 'Kantor',
+                deskripsi: 'Kelompok ini mencakup usaha pembuatan macam-macam mesin dan peralatan kantor lainnya yang tidak diklasifikasikan di tempat lain.',
+                produk: [
+                    'Toner cartridge',
+                    'White board (papan tulis putih)',
+                    'Marker board (papan tulis spidol)',
+                    'Chalk board (papan tulis kapur)',
+                    'Mesin pendikte (dictation machine)'
+                ],
+                deskripsiProduk: {
+                    'Toner cartridge': 'Kartrid media cetak berisi serbuk toner untuk printer laser; mencakup varian OEM dan kompatibel, komponen consumable untuk dokumen berkualitas tinggi.',
+                    'White board (papan tulis putih)': 'Papan tulis permukaan kering untuk keperluan presentasi dan diskusi, tersedia dalam berbagai ukuran dan finishing (melamin, enamel, kaca).',
+                    'Marker board (papan tulis spidol)': 'Papan yang dirancang untuk digunakan dengan spidol dry‑erase; mudah dibersihkan dan cocok untuk ruang rapat dan kelas.',
+                    'Chalk board (papan tulis kapur)': 'Papan tradisional untuk menulis dengan kapur; dibuat dari bahan tahan lama untuk penggunaan pendidikan dan industri kreatif.',
+                    'Mesin pendikte (dictation machine)': 'Perangkat rekam suara untuk pencatatan dan transkripsi, termasuk model digital portabel dan sistem pendikte profesional untuk kantor.'
+                }
+            },
+            {
+                kode: '28193',
+                nama: 'INDUSTRI MESIN PENDINGIN',
+                kategori: 'Mesin Pendingin',
+                deskripsi: 'Kelompok ini mencakup pembuatan mesin pendingin dan pembeku untuk keperluan komersial, industri, medis, serta komponen dan sistem HVAC terkait.',
+                produk: [
+                    "Perlengkapan AC",
+                    "Exhaust",
+                    "HVAC",
+                    "Mesin pendigin medis",
+                    "Mesin pendingin (evaporator/condensor)",
+                    "Freezer",
+                    "Fan & Duct Set",
+                    "Cold Storage",
+                    "Chiller"
+                ],
+                deskripsiProduk: {
+                    "Perlengkapan AC": "Komponen dan aksesori sistem pendingin ruangan seperti kompresor, kondensor, evaporator, expansion valve, filter dan kontrol elektronik untuk unit AC sentral atau split.",
+                    "Exhaust": "Sistem pembuangan udara dan ventilasi mekanis yang mengeluarkan udara panas atau limbah dari ruang kerja/industri untuk menjaga sirkulasi dan kualitas udara.",
+                    "HVAC": "Sistem terintegrasi pemanas, ventilasi, dan pendinginan (Heating, Ventilation, Air Conditioning) untuk pengendalian iklim di gedung komersial, industri, atau residensial.",
+                    "Mesin pendigin medis": "Unit pendingin khusus untuk aplikasi medis (mis. penyimpanan vaksin, laboratorium) dengan kontrol suhu presisi dan standar kebersihan serta keamanan bio.",
+                    "Mesin pendingin (evaporator/condensor)": "Unit evaporator dan kondensor untuk siklus refrigerasi yang berfungsi menukar panas dan mempertahankan suhu ruang atau proses.",
+                    "Freezer": "Perangkat atau kabinet pembeku dengan rentang suhu rendah untuk penyimpanan bahan makanan, obat, atau bahan kimia pada suhu beku yang stabil.",
+                    "Fan & Duct Set": "Kipas dan saluran (ducting) untuk distribusi udara pada sistem HVAC atau unit pendingin, termasuk blower, diffuser, dan peredam suara.",
+                    "Cold Storage": "Fasilitas penyimpanan bersuhu rendah berskala komersial/industri untuk produk makanan, farmasi, dan logistik rantai dingin, dilengkapi kontrol suhu dan isolasi termal.",
+                    "Chiller": "Peralatan pendingin sirkulasi air/fluida untuk proses industri dan HVAC yang menghasilkan pendinginan terkontrol untuk proses produksi atau sistem AC sentral."
+                }
+            },
+            {
+                kode: '28262',
+                nama: 'INDUSTRI MESIN JAHIT SERTA MESIN CUCI DAN MESIN PENGERING UNTUK KEPERLUAN NIAGA',
+                kategori: 'Mesin Jahit & Laundry',
+                deskripsi: 'Kelompok ini mencakup pembuatan mesin jahit industri, mesin obras, mesin bordir serta peralatan laundry/penatu skala niaga seperti mesin cuci, mesin pengering, mesin setrika uap dan sistem uap bertekanan (steam pressure). Mesin cuci/pengering untuk keperluan rumah tangga berada di kelompok lain.',
+                produk: [
+                    'Mesin cuci keperluan niaga',
+                    'mesin pengering',
+                    'Mesin setrika uap',
+                    'Mesin steam pressure'
+                ],
+                deskripsiProduk: {
+                    'Mesin cuci keperluan niaga': 'Mesin cuci berkapasitas besar untuk usaha laundry/penatu dengan siklus heavy‑duty, kontrol otomatis, efisiensi air/energi, dan konstruksi tahan lama untuk penggunaan komersial.',
+                    'mesin pengering': 'Unit pengering kapasitas komersial yang menghilangkan kelembaban secara efisien; dilengkapi pengaturan suhu, timetables siklus, sistem ventilasi atau condensor, dan fitur keselamatan untuk operasional intensif.',
+                    'Mesin setrika uap': 'Peralatan setrika steam profesional (table press, steam iron, finishing presses) untuk penghalusan dan finishing pakaian/linen dalam usaha laundry atau jasa penatu, dengan kontrol tekanan dan temperatur uap.',
+                    'Mesin steam pressure': 'Sistem uap bertekanan termasuk boiler dan unit distribusi uap untuk kebutuhan pressing, sterilisasi atau proses laundry industri; dilengkapi kontrol tekanan, safety valve, dan aksesori instalasi.'
+                }
+            },
+            {
+                kode: '28299',
+                nama: 'INDUSTRI MESIN KEPERLUAN KHUSUS LAINNYA',
+                kategori: 'Mesin Khusus',
+                deskripsi: 'Kelompok ini mencakup pembuatan berbagai mesin khusus untuk aplikasi industri dan komersial yang tidak termasuk kelompok lain.',
+                produk: [
+                    '3D Printer'
+                ],
+                deskripsiProduk: {
+                    '3D Printer': 'Mesin pencetak aditif (3D printer) untuk menghasilkan objek dari model digital dengan teknologi seperti FDM, SLA, SLS, DMLS; digunakan untuk prototyping, produksi komponen fungsional, dan aplikasi manufaktur khusus.'
+                }
+            },
+        ];
+
+        /* ========================================
+           VARIABEL GLOBAL
+           ======================================== */
+        let currentCategory = 'Semua';
+        let searchTerm = '';
+        let isProcessingClick = false; // Flag untuk mencegah multiple clicks
+
+        /* ========================================
+           FUNGSI INISIALISASI
+           ======================================== */
+        function init() {
+            renderCategories();
+            renderCards();
+            updateStats();
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+        }
+
+        /* ========================================
+           FUNGSI RENDER KATEGORI
+           ======================================== */
+        function renderCategories() {
+            const categories = ['Semua', ...new Set(kbliData.map(item => item.kategori))];
+            const container = document.getElementById('categoryFilters');
+            container.innerHTML = categories.map(cat => 
+                '<button class="category-btn ' + (cat === currentCategory ? 'active' : '') + '" onclick="filterByCategory(\'' + cat + '\')">' + cat + '</button>'
+            ).join('');
+        }
+
+        /* ========================================
+           FUNGSI FILTER BERDASARKAN KATEGORI
+           ======================================== */
+        function filterByCategory(category) {
+            currentCategory = category;
+            renderCategories();
+            renderCards();
+            updateStats();
+        }
+
+        /* ========================================
+           FUNGSI HANDLE PENCARIAN
+           ======================================== */
+        function handleSearch(e) {
+            searchTerm = e.target.value.toLowerCase();
+            renderCards();
+            updateStats();
+        }
+
+        /* ========================================
+           FUNGSI GET FILTERED DATA
+           ======================================== */
+        function getFilteredData() {
+            return kbliData.filter(function(item) {
+                const matchCategory = currentCategory === 'Semua' || item.kategori === currentCategory;
+                
+                if (!searchTerm) {
+                    return matchCategory;
+                }
+                
+                const matchKode = item.kode.toLowerCase().includes(searchTerm);
+                const matchNama = item.nama.toLowerCase().includes(searchTerm);
+                const matchingProducts = item.produk.filter(function(p) { 
+                    return p.toLowerCase().includes(searchTerm); 
+                });
+                
+                if (matchKode || matchNama) {
+                    return matchCategory;
+                }
+                
+                if (matchingProducts.length > 0) {
+                    item.filteredProducts = matchingProducts;
+                    return matchCategory;
+                }
+                
+                return false;
+            });
+        }
+
+        /* ========================================
+           FUNGSI RENDER CARDS
+           ======================================== */
+        function renderCards() {
+            const filteredData = getFilteredData();
+            const container = document.getElementById('kbliGrid');
+            
+            if (filteredData.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p class="empty-title">Tidak ada data yang ditemukan</p><p class="empty-text">Coba ubah kata kunci pencarian atau filter kategori</p></div>';
+                return;
+            }
+            
+            container.innerHTML = filteredData.map(function(item) {
+                const productsToShow = searchTerm && item.filteredProducts ? item.filteredProducts : item.produk;
+                const isSearchingProduct = searchTerm && item.filteredProducts;
+                
+                return '<div class="kbli-card" id="card-' + item.kode + '">' +
+                    '<div class="kbli-header" onclick="return toggleCard(\'' + item.kode + '\', event);">' +
+                    '<div class="kbli-badges"><div class="kbli-code">KBLI ' + item.kode + '</div><div class="kbli-category">' + item.kategori + '</div></div>' +
+                    '<h3 class="kbli-title">' + item.nama + '</h3>' +
+                    '<p class="kbli-description" id="desc-' + item.kode + '">' + item.deskripsi + '</p>' +
+                    '<button class="read-more-btn" id="btn-' + item.kode + '" onclick="return toggleDescription(event, \'' + item.kode + '\');">' +
+                    '<span class="read-more-text">Lihat Selengkapnya</span>' +
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
+                    '</button>' +
+                    '<div class="kbli-footer"><span class="product-count">' + 
+                    (isSearchingProduct ? productsToShow.length + ' dari ' + item.produk.length : item.produk.length) + 
+                    ' Produk</span>' +
+                    '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="9 18 15 12 9 6"/></svg></div></div>' +
+                    '<div class="kbli-products" onclick="event.stopPropagation(); return false;"><h4 class="products-title">Daftar Produk' + 
+                    (isSearchingProduct ? ' (Hasil Pencarian)' : '') + '</h4><div class="products-list">' +
+                    productsToShow.map(function(produk, idx) {
+                        const isHighlight = searchTerm && produk.toLowerCase().includes(searchTerm);
+                        return '<div class="product-item' + (isHighlight ? ' highlight' : '') + '" onclick="return openProductModal(\'' + produk.replace(/'/g, "\\'") + '\', \'' + item.kode + '\', \'' + item.nama.replace(/'/g, "\\'") + '\', event);">' +
+                            '<div class="product-number">' + (idx + 1) + '</div><span class="product-name">' + produk + '</span></div>';
+                    }).join('') + '</div></div></div>';
+            }).join('');
+        }
+
+        /* ========================================
+           FUNGSI TOGGLE CARD
+           ======================================== */
+        function toggleCard(kode, event) {
+            // Cegah multiple processing
+            if (isProcessingClick) {
+                return false;
+            }
+            isProcessingClick = true;
+            
+            // Stop semua propagasi event
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+            }
+            
+            // Cek apakah klik berasal dari dalam area produk atau tombol
+            if (event && (event.target.closest('.read-more-btn') || event.target.closest('.kbli-products') || event.target.closest('.product-item'))) {
+                isProcessingClick = false;
+                return false;
+            }
+            
+            const clickedCard = document.getElementById('card-' + kode);
+            if (!clickedCard) {
+                isProcessingClick = false;
+                return false;
+            }
+            
+            const wasExpanded = clickedCard.classList.contains('expanded');
+            
+            // Tutup semua card yang terbuka
+            const allCards = document.querySelectorAll('.kbli-card');
+            allCards.forEach(function(card) {
+                card.classList.remove('expanded');
+            });
+            
+            // Toggle card yang diklik (buka jika sebelumnya tertutup)
+            if (!wasExpanded) {
+                clickedCard.classList.add('expanded');
+            }
+            
+            // Reset flag setelah selesai
+            setTimeout(function() {
+                isProcessingClick = false;
+            }, 100);
+            
+            return false;
+        }
+
+        /* ========================================
+           FUNGSI TOGGLE DESCRIPTION
+           ======================================== */
+        function toggleDescription(event, kode) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+            }
+            
+            const desc = document.getElementById('desc-' + kode);
+            const btn = document.getElementById('btn-' + kode);
+            const btnText = btn.querySelector('.read-more-text');
+            
+            desc.classList.toggle('expanded');
+            btn.classList.toggle('expanded');
+            
+            if (desc.classList.contains('expanded')) {
+                btnText.textContent = 'Lihat Lebih Sedikit';
+            } else {
+                btnText.textContent = 'Lihat Selengkapnya';
+            }
+            
+            return false;
+        }
+
+        /* ========================================
+           FUNGSI OPEN PRODUCT MODAL
+           ======================================== */
+        function openProductModal(productName, kbliCode, kbliName, event) {
+            // Stop semua propagasi event
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+            }
+            
+            document.getElementById('modalKBLICode').textContent = 'KBLI ' + kbliCode;
+            document.getElementById('modalTitle').textContent = productName;
+            document.getElementById('modalCategory').textContent = kbliName;
+            
+            const kbliItem = kbliData.find(function(item) { return item.kode === kbliCode; });
+            let description = 'Produk ' + productName + ' merupakan salah satu produk utama dalam kategori ' + kbliName + '. Produk ini diproduksi dengan standar kualitas tinggi dan memenuhi kebutuhan industri di Indonesia.';
+            
+            if (kbliItem && kbliItem.deskripsiProduk && kbliItem.deskripsiProduk[productName]) {
+                description = kbliItem.deskripsiProduk[productName];
+            }
+            
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            return false;
+        }
+
+        /* ========================================
+           FUNGSI CLOSE MODAL
+           ======================================== */
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        /* ========================================
+           FUNGSI UPDATE STATS
+           ======================================== */
+        function updateStats() {
+            const filteredData = getFilteredData();
+            const totalProducts = kbliData.reduce(function(sum, item) { return sum + item.produk.length; }, 0);
+            document.getElementById('totalKBLI').textContent = kbliData.length;
+            document.getElementById('totalProducts').textContent = totalProducts;
+            document.getElementById('searchResults').textContent = filteredData.length;
+        }
+
+        /* ========================================
+           JALANKAN INISIALISASI
+           ======================================== */
+        init();
+    </script>
+</body>
+</html>
